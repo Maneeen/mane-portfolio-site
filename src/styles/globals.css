@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --text: #fff;
+  --accent: #FFC82E;
+  --muted: #555;
+  --dim: #333;
+  --font: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  letter-spacing: -0.3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dim);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Force Spline canvas transparent */
+canvas[data-engine],
+#hero canvas {
+  background: transparent !important;
+}
+
+/* Hide Spline watermark */
+spline-viewer::part(logo) {
+  display: none !important;
+}
+spline-viewer #logo,
+spline-viewer [id*="logo"],
+spline-viewer div[style*="icon_favicon"] {
+  display: none !important;
+}
+spline-viewer {
+  --spline-viewer-logo-display: none;
+}
+spline-viewer div[style*="position: absolute"][style*="bottom"] {
+  display: none !important;
+}
+
