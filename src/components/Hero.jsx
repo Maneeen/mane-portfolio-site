@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import SplineScene from './SplineScene';
+import { useIsMobile, useIsTablet } from '../hooks/useMediaQuery';
 const LinkedinIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -69,6 +70,8 @@ const socials = [
 
 export default function Hero() {
   const typed = useTypewriter(titles);
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   return (
     <section
       id="hero"
@@ -85,24 +88,24 @@ export default function Hero() {
         style={{
           flex: 1,
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: isTablet ? '1fr' : '1fr 1fr',
           alignItems: 'center',
-          padding: '120px 40px 0',
-          gap: 20,
+          padding: isMobile ? '100px 24px 20px' : '120px 40px 0',
+          gap: isTablet ? 32 : 20,
         }}
       >
         {/* Left */}
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           <motion.h1
             variants={lineVariants}
-            style={{ fontSize: 'clamp(36px, 5vw, 72px)', fontWeight: 700, lineHeight: 1.1 }}
+            style={{ fontSize: 'clamp(44px, 9vw, 72px)', fontWeight: 700, lineHeight: 1.1 }}
           >
             HELLO, I AM MANE
           </motion.h1>
           <motion.h1
             variants={lineVariants}
             style={{
-              fontSize: 'clamp(36px, 5vw, 72px)',
+              fontSize: 'clamp(44px, 9vw, 72px)',
               fontWeight: 700,
               lineHeight: 1.1,
               color: 'var(--accent)',
@@ -124,36 +127,19 @@ export default function Hero() {
           </motion.h1>
           <motion.h1
             variants={lineVariants}
-            style={{ fontSize: 'clamp(36px, 5vw, 72px)', fontWeight: 700, lineHeight: 1.1 }}
+            style={{ fontSize: 'clamp(44px, 9vw, 72px)', fontWeight: 700, lineHeight: 1.1 }}
           >
             IT IS MY PORTFOLIO
           </motion.h1>
 
-          <motion.div variants={lineVariants} style={{ display: 'flex', gap: 16, marginTop: 32 }}>
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                style={{
-                  color: 'var(--muted)',
-                  transition: 'color 0.2s ease',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
-              >
-                <Icon />
-              </a>
-            ))}
-          </motion.div>
         </motion.div>
 
-        {/* Right — Spline */}
-        <div style={{ position: 'relative', width: '100%', height: '70vh' }}>
-          <SplineScene scene="https://prod.spline.design/W3RNP2I5rt3fqqHq/scene.splinecode" />
-        </div>
+        {/* Right — Spline (desktop only) */}
+        {!isTablet && (
+          <div style={{ position: 'relative', width: '100%', height: '70vh' }}>
+            <SplineScene scene="https://prod.spline.design/W3RNP2I5rt3fqqHq/scene.splinecode" />
+          </div>
+        )}
       </div>
 
       {/* Bottom bar */}
@@ -167,16 +153,16 @@ export default function Hero() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '24px 40px',
+          padding: isMobile ? '20px 24px' : '24px 40px',
           borderTop: '1px solid rgba(255,255,255,0.08)',
         }}
       >
-        <span style={{ color: 'var(--text)', fontSize: 24, fontWeight: 500 }}>2026</span>
+        <span style={{ color: 'var(--text)', fontSize: isMobile ? 16 : 24, fontWeight: 500 }}>2026</span>
         <span />
         <span
           style={{
             fontFamily: 'var(--font)',
-            fontSize: 24,
+            fontSize: isMobile ? 16 : 24,
             fontWeight: 500,
             color: 'var(--text)',
           }}

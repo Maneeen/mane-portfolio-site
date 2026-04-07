@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projects } from '../data/projects';
+import { useIsMobile } from '../hooks/useMediaQuery';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,11 +23,84 @@ function DetailRow({ label, children }) {
   );
 }
 
+function MobileWorks() {
+  return (
+    <section
+      id="works"
+      style={{
+        padding: '80px 24px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 80,
+      }}
+    >
+      {projects.map((project) => (
+        <div key={project.title}>
+          {/* Title */}
+          <h2
+            style={{
+              fontSize: 'clamp(36px, 9vw, 56px)',
+              fontWeight: 600,
+              lineHeight: 1.1,
+              marginBottom: 24,
+              wordBreak: 'break-word',
+            }}
+          >
+            {project.title}
+          </h2>
+
+          {/* Image */}
+          <div
+            style={{
+              width: '100%',
+              aspectRatio: '4/3',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 24,
+            }}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{
+                maxWidth: project.small ? '55%' : '90%',
+                maxHeight: project.small ? '55%' : '90%',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+
+          {/* Details */}
+          <div>
+            <DetailRow label="Overview">
+              <p style={{ margin: 0 }}>{project.desc}</p>
+            </DetailRow>
+            <DetailRow label="Tags">
+              {project.tags.map((tag) => (
+                <p key={tag} style={{ margin: 0 }}>{tag}</p>
+              ))}
+            </DetailRow>
+            <DetailRow label="Industry">
+              {project.industry.map((ind) => (
+                <p key={ind} style={{ margin: 0 }}>{ind}</p>
+              ))}
+            </DetailRow>
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 export default function Works() {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (isMobile) return;
+
     const items = gsap.utils.toArray('.work-title');
 
     items.forEach((item, i) => {
@@ -40,7 +114,11 @@ export default function Works() {
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return <MobileWorks />;
+  }
 
   const active = projects[activeIndex];
 
@@ -50,7 +128,7 @@ export default function Works() {
       ref={sectionRef}
       style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 60px 1fr',
+        gridTemplateColumns: '1fr 1fr',
         minHeight: '100vh',
         position: 'relative',
       }}
@@ -64,7 +142,7 @@ export default function Works() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '40px',
+          padding: 'clamp(24px, 3vw, 40px)',
         }}
       >
         {/* Image */}
@@ -114,31 +192,8 @@ export default function Works() {
         </div>
       </div>
 
-      {/* Center — year */}
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span
-          style={{
-            color: 'var(--text)',
-            fontSize: 14,
-            fontWeight: 500,
-            opacity: 0.6,
-          }}
-        >
-          {active.year}
-        </span>
-      </div>
-
       {/* Right — project titles */}
-      <div style={{ padding: '50vh 40px 20vh 20px' }}>
+      <div style={{ padding: '50vh clamp(20px, 3vw, 40px) 20vh 20px' }}>
         {projects.map((project, i) => (
           <div
             key={project.title}
@@ -150,7 +205,7 @@ export default function Works() {
           >
             <h2
               style={{
-                fontSize: 'clamp(40px, 5vw, 72px)',
+                fontSize: 'clamp(32px, 5vw, 72px)',
                 fontWeight: 600,
                 color: i === activeIndex ? 'var(--text)' : 'var(--dim)',
                 transition: 'color 0.4s ease',

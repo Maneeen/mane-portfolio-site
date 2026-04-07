@@ -15,7 +15,7 @@ export const projects = [
     tags: ["UI/UX Design", "Design System", "Visual Identity", "Mobile"],
     industry: ["Wellness", "Mental Health"],
     client: "Soul Guide",
-    desc: "End-to-end UI/UX design for a wellness app covering meditations, live sessions, journaling, and mood tracking. Built the full design system from scratch — components, typography, colour, iconography — and developed a cohesive visual identity that feels calm, personal, and trustworthy.",
+    desc: "End-to-end UI/UX design for a wellness app covering meditations, live sessions, journaling, and mood tracking. Built the full design system from scratch — components, typography, colour, iconography — and developed a cohesive visual identity that feels calm, personal, and trustworthy. I also fully developed this app myself using Cursor and Claude Code.",
     image: "/mockups/soulguide.png",
     link: "#",
   },

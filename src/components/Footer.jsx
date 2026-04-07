@@ -1,29 +1,6 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SplineScene from './SplineScene';
-
-function LiveClock() {
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-      const utc4 = new Date(now.getTime() + (4 * 60 + now.getTimezoneOffset()) * 60000);
-      setTime(
-        utc4.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }) + ' UTC+4'
-      );
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  return <span>{time}</span>;
-}
+import { useIsMobile, useIsTablet } from '../hooks/useMediaQuery';
 
 const links = [
   { label: 'Home', id: 'hero' },
@@ -35,8 +12,6 @@ const links = [
 const socialsData = [
   { label: 'Email', href: 'mailto:mane.airapetyan12345@gmail.com' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mane-airapetyan-38b023331/' },
-  { label: 'Whatsapp', href: 'https://t.me/maneaira' },
-  { label: 'Github', href: 'https://github.com/' },
 ];
 
 const colStyle = {
@@ -67,6 +42,9 @@ const linkStyle = {
 };
 
 export default function Footer() {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -78,16 +56,17 @@ export default function Footer() {
         position: 'relative',
         borderTop: '1px solid rgba(255,255,255,0.08)',
         background: 'var(--bg)',
+        overflow: 'hidden',
       }}
     >
       {/* Grid */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 40,
-          padding: '60px 40px',
-          maxWidth: 1200,
+          gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(2, 1fr)',
+          gap: isMobile ? 32 : 40,
+          padding: isMobile ? '40px 24px' : '60px 40px',
+          maxWidth: 800,
         }}
       >
         <div style={colStyle}>
@@ -121,27 +100,16 @@ export default function Footer() {
             </a>
           ))}
         </div>
-
-        <div style={colStyle}>
-          <span style={headStyle}>Local Time</span>
-          <span style={{ fontSize: 14, opacity: 0.6 }}>
-            <LiveClock />
-          </span>
-        </div>
-
-        <div style={colStyle}>
-          <span style={headStyle}>Version</span>
-          <span style={{ fontSize: 14, opacity: 0.6 }}>2026 &copy; Edition</span>
-        </div>
       </div>
 
       {/* Contact buttons */}
       <div
         style={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          flexWrap: 'wrap',
+          justifyContent: isMobile ? 'flex-start' : 'flex-end',
           gap: 12,
-          padding: '0 40px 40px',
+          padding: isMobile ? '0 24px 32px' : '0 40px 40px',
         }}
       >
         <a
@@ -170,6 +138,7 @@ export default function Footer() {
             fontSize: 14,
             color: 'var(--text)',
             transition: 'border-color 0.2s ease',
+            wordBreak: 'break-all',
           }}
           onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)')}
           onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)')}
@@ -188,18 +157,30 @@ export default function Footer() {
           paddingTop: 40,
         }}
       >
-        {/* Robot floating above text */}
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 2,
-            width: 360,
-            height: 360,
-            marginBottom: -80,
-          }}
-        >
-          <SplineScene scene="https://prod.spline.design/TB3MdzrjidkTZ6l9/scene.splinecode" />
-        </div>
+        {/* Robot floating above text — hidden on mobile, scaled on tablet */}
+        {!isMobile && (
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              width: 360,
+              height: 360,
+              marginBottom: isTablet ? -50 : -80,
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                transform: isTablet ? 'scale(0.7)' : 'scale(1)',
+                transformOrigin: 'center center',
+              }}
+            >
+              <SplineScene scene="/robot.splinecode" />
+            </div>
+          </div>
+        )}
 
         {/* Big MANE text */}
         <motion.div
@@ -223,22 +204,24 @@ export default function Footer() {
       </div>
 
       {/* Vertical Portfolio text */}
-      <div
-        style={{
-          position: 'absolute',
-          right: 20,
-          bottom: 120,
-          writingMode: 'vertical-rl',
-          textOrientation: 'mixed',
-          color: 'var(--dim)',
-          fontSize: 11,
-          letterSpacing: 4,
-          textTransform: 'uppercase',
-          fontVariant: 'all-small-caps',
-        }}
-      >
-        Portfolio
-      </div>
+      {!isMobile && (
+        <div
+          style={{
+            position: 'absolute',
+            right: 20,
+            bottom: 120,
+            writingMode: 'vertical-rl',
+            textOrientation: 'mixed',
+            color: 'var(--dim)',
+            fontSize: 11,
+            letterSpacing: 4,
+            textTransform: 'uppercase',
+            fontVariant: 'all-small-caps',
+          }}
+        >
+          Portfolio
+        </div>
+      )}
     </footer>
   );
 }

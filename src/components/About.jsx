@@ -26,18 +26,34 @@ export default function About() {
 
     gsap.set(nonAccent, { color: '#333' });
 
-    gsap.to(nonAccent, {
-      color: '#fff',
-      stagger: 0.02,
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 75%',
-        end: 'bottom 60%',
-        scrub: 1,
-      },
-    });
+    const ctx = gsap.context(() => {
+      gsap.to(nonAccent, {
+        color: '#fff',
+        stagger: 0.02,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 90%',
+          end: 'top 10%',
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, containerRef);
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    // Refresh after layout settles (Spline / images load)
+    const refreshTimes = [300, 800, 1500, 3000];
+    const timers = refreshTimes.map((t) => setTimeout(() => ScrollTrigger.refresh(), t));
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', onResize);
+
+    return () => {
+      timers.forEach(clearTimeout);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onResize);
+      ctx.revert();
+    };
   }, []);
 
   let wordIdx = 0;
@@ -75,7 +91,7 @@ export default function About() {
       id="about"
       style={{
         position: 'relative',
-        padding: '160px 40px',
+        padding: 'clamp(80px, 12vw, 160px) clamp(24px, 5vw, 40px)',
         display: 'flex',
         justifyContent: 'center',
       }}
@@ -84,8 +100,8 @@ export default function About() {
         <p
           ref={containerRef}
           style={{
-            fontSize: 'clamp(18px, 2.2vw, 22px)',
-            lineHeight: 1.75,
+            fontSize: 'clamp(22px, 4.5vw, 28px)',
+            lineHeight: 1.6,
           }}
         >
           {renderText()}
