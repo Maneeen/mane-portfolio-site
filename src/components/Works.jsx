@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projects } from '../data/projects';
@@ -23,6 +24,42 @@ function DetailRow({ label, children }) {
   );
 }
 
+function ViewCaseButton({ slug }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      to={`/work/${slug}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        marginTop: 20,
+        padding: '11px 24px',
+        borderRadius: 40,
+        border: `1px solid ${hovered ? 'var(--accent)' : 'rgba(255,255,255,0.18)'}`,
+        color: hovered ? 'var(--accent)' : 'var(--text)',
+        fontSize: 14,
+        fontWeight: 500,
+        transition: 'color 0.25s ease, border-color 0.25s ease',
+      }}
+    >
+      View case
+      <span
+        aria-hidden="true"
+        style={{
+          display: 'inline-block',
+          transition: 'transform 0.25s ease',
+          transform: hovered ? 'translate(3px, -3px)' : 'none',
+        }}
+      >
+        ↗
+      </span>
+    </Link>
+  );
+}
+
 function MobileWorks() {
   return (
     <section
@@ -35,22 +72,25 @@ function MobileWorks() {
       }}
     >
       {projects.map((project) => (
-        <div key={project.title}>
+        <div key={project.slug}>
           {/* Title */}
-          <h2
-            style={{
-              fontSize: 'clamp(36px, 9vw, 56px)',
-              fontWeight: 600,
-              lineHeight: 1.1,
-              marginBottom: 24,
-              wordBreak: 'break-word',
-            }}
-          >
-            {project.title}
-          </h2>
+          <Link to={`/work/${project.slug}`}>
+            <h2
+              style={{
+                fontSize: 'clamp(36px, 9vw, 56px)',
+                fontWeight: 600,
+                lineHeight: 1.1,
+                marginBottom: 24,
+                wordBreak: 'break-word',
+              }}
+            >
+              {project.title}
+            </h2>
+          </Link>
 
           {/* Image */}
-          <div
+          <Link
+            to={`/work/${project.slug}`}
             style={{
               width: '100%',
               aspectRatio: '4/3',
@@ -69,7 +109,7 @@ function MobileWorks() {
                 objectFit: 'contain',
               }}
             />
-          </div>
+          </Link>
 
           {/* Details */}
           <div>
@@ -87,9 +127,55 @@ function MobileWorks() {
               ))}
             </DetailRow>
           </div>
+
+          <ViewCaseButton slug={project.slug} />
         </div>
       ))}
     </section>
+  );
+}
+
+function WorkTitle({ project, active }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div className="work-title" style={{ padding: '20px 0' }}>
+      <Link
+        to={`/work/${project.slug}`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{ display: 'inline-block' }}
+      >
+        <h2
+          style={{
+            fontSize: 'clamp(32px, 5vw, 72px)',
+            fontWeight: 600,
+            color: active ? 'var(--text)' : 'var(--dim)',
+            transition: 'color 0.4s ease',
+            lineHeight: 1.15,
+          }}
+        >
+          {project.title}
+          {/* zero-width so it never wraps to its own line on long titles */}
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'inline-block',
+              width: 0,
+              overflow: 'visible',
+              whiteSpace: 'nowrap',
+              textIndent: '0.18em',
+              fontWeight: 500,
+              color: 'var(--accent)',
+              opacity: hovered ? 1 : 0,
+              transition: 'opacity 0.3s ease, transform 0.3s ease',
+              transform: hovered ? 'translate(0, 0)' : 'translate(-8px, 8px)',
+            }}
+          >
+            ↗
+          </span>
+        </h2>
+      </Link>
+    </div>
   );
 }
 
@@ -142,24 +228,27 @@ export default function Works() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: 'clamp(24px, 3vw, 40px)',
+          padding: '92px clamp(24px, 3vw, 40px) 28px',
         }}
       >
-        {/* Image */}
-        <div
+        {/* Image — flexible height so it never clips under the navbar */}
+        <Link
+          to={`/work/${active.slug}`}
           style={{
             width: '100%',
-            aspectRatio: '4/3',
+            flex: '1 1 auto',
+            minHeight: 0,
             position: 'relative',
             marginBottom: 24,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            cursor: 'pointer',
           }}
         >
           {projects.map((project, i) => (
             <img
-              key={project.title}
+              key={project.slug}
               src={project.image}
               alt={project.title}
               style={{
@@ -172,7 +261,7 @@ export default function Works() {
               }}
             />
           ))}
-        </div>
+        </Link>
 
         {/* Details table */}
         <div>
@@ -190,31 +279,16 @@ export default function Works() {
             ))}
           </DetailRow>
         </div>
+
+        <div>
+          <ViewCaseButton slug={active.slug} />
+        </div>
       </div>
 
       {/* Right — project titles */}
       <div style={{ padding: '50vh clamp(20px, 3vw, 40px) 20vh 20px' }}>
         {projects.map((project, i) => (
-          <div
-            key={project.title}
-            className="work-title"
-            style={{
-              padding: '20px 0',
-              cursor: 'pointer',
-            }}
-          >
-            <h2
-              style={{
-                fontSize: 'clamp(32px, 5vw, 72px)',
-                fontWeight: 600,
-                color: i === activeIndex ? 'var(--text)' : 'var(--dim)',
-                transition: 'color 0.4s ease',
-                lineHeight: 1.15,
-              }}
-            >
-              {project.title}
-            </h2>
-          </div>
+          <WorkTitle key={project.slug} project={project} active={i === activeIndex} />
         ))}
 
         <div style={{ height: '50vh' }} />

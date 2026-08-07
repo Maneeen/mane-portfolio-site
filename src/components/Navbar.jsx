@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
@@ -70,7 +71,7 @@ function ContactPillButton({ href, label = 'Contact' }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         background: '#fff',
-        color: '#0a0a0a',
+        color: '#000',
         border: 'none',
         padding: '11px 24px',
         borderRadius: 50,
@@ -215,6 +216,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -234,7 +236,13 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // section lives on the home page — navigate there first
+      navigate('/', { state: { scrollTo: id } });
+    }
     setMenuOpen(false);
   };
 
@@ -255,12 +263,12 @@ export default function Navbar() {
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '14px 20px',
-            background: scrolled ? 'rgba(10,10,10,0.85)' : 'transparent',
+            background: scrolled ? 'rgba(0,0,0,0.85)' : 'transparent',
             backdropFilter: scrolled ? 'blur(20px)' : 'none',
             WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
           }}
         >
-          <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: 1 }}>M. A.</div>
+          <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: 1 }}><Link to="/">M. A.</Link></div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <ContactPillButton href="https://t.me/maneaira" label="Contact" />
@@ -297,7 +305,7 @@ export default function Navbar() {
                 position: 'fixed',
                 inset: 0,
                 zIndex: 200,
-                background: '#0a0a0a',
+                background: '#000',
                 display: 'flex',
                 flexDirection: 'column',
                 padding: '24px',
@@ -313,7 +321,7 @@ export default function Navbar() {
                   marginBottom: 40,
                 }}
               >
-                <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: 1 }}>M. A.</div>
+                <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: 1 }}><Link to="/">M. A.</Link></div>
                 <button
                   onClick={() => setMenuOpen(false)}
                   aria-label="Close menu"
@@ -392,6 +400,10 @@ export default function Navbar() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '20px 40px',
+        background: scrolled ? 'rgba(0,0,0,0.82)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+        transition: 'background 0.35s ease',
       }}
     >
       <div
@@ -403,7 +415,7 @@ export default function Navbar() {
           letterSpacing: 1,
         }}
       >
-        M. A.
+        <Link to="/">M. A.</Link>
       </div>
 
       <div

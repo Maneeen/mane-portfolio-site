@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import SplineScene from './SplineScene';
 import { useIsMobile, useIsTablet } from '../hooks/useMediaQuery';
 
@@ -44,9 +45,15 @@ const linkStyle = {
 export default function Footer() {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const navigate = useNavigate();
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/', { state: { scrollTo: id } });
+    }
   };
 
   return (
