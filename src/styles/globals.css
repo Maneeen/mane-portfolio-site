@@ -465,39 +465,30 @@ img {
     font-size: 14px;
   }
 
-  /* Mobile hero layout: the panel's pieces are placed independently —
-     menu bottom-left, CTA bottom-right, experience counter between them on
-     the (always black) coat; the role sits behind the photo, top-right. */
+  /* Mobile hero layout: CTA on top of the menu in a bottom-left column, the
+     experience counter large on the right, on the (always black) coat. */
   .hero__panel {
-    display: contents;
-  }
-
-  .hero__panel .panel__nav,
-  .hero__panel .panel__exp,
-  .hero__panel .pill--solid {
-    position: absolute;
-    z-index: 3;
-    bottom: 16px;
-    margin: 0;
-  }
-
-  .hero__panel .panel__nav {
     left: 16px;
+    right: 16px;
+    bottom: 16px;
   }
 
   .hero__panel .pill--solid {
-    right: 16px;
+    order: -1;
+    margin: 0;
   }
 
   .hero__panel .panel__exp--stacked {
     display: block;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    text-align: right;
     white-space: nowrap;
-    font-size: clamp(20px, 5.6vw, 34px);
+    font-size: clamp(30px, 9.2vw, 64px);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1;
     letter-spacing: -0.03em;
     color: #fff;
   }
