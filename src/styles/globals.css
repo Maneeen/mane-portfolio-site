@@ -465,14 +465,56 @@ img {
     font-size: 14px;
   }
 
-  .hero__panel .panel__exp strong {
-    font-size: 32px;
+  /* Mobile hero layout: the panel's pieces are placed independently —
+     menu bottom-left, CTA bottom-right, experience counter between them on
+     the (always black) coat; the role sits behind the photo, top-right. */
+  .hero__panel {
+    display: contents;
   }
 
-  .hero__role {
-    right: 16px;
+  .hero__panel .panel__nav,
+  .hero__panel .panel__exp,
+  .hero__panel .pill--solid {
+    position: absolute;
+    z-index: 3;
     bottom: 16px;
-    max-width: 40%;
+    margin: 0;
+  }
+
+  .hero__panel .panel__nav {
+    left: 16px;
+  }
+
+  .hero__panel .pill--solid {
+    right: 16px;
+  }
+
+  .hero__panel .panel__exp--stacked {
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+    font-size: clamp(20px, 5.6vw, 34px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+
+  /* role split to either side of the head, tucked behind the photo */
+  .hero__role--split {
+    z-index: 1;
+    left: 16px;
+    right: 16px;
+    top: calc(76px + 25vw + 20px);
+    bottom: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    font-size: clamp(16px, 4.2vw, 30px);
+    font-weight: 400;
   }
 }
 
@@ -806,4 +848,24 @@ img {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Mobile hero, light theme: the dark-clothed photo sits under the menu, so
+   give the pills an opaque backing. Desktop is unaffected — there the
+   panel never overlaps the photo. */
+@media (max-width: 1024px) {
+  :root[data-theme='light'] .hero__panel .pill:not(.pill--solid) {
+    background: #fff;
+    border-color: transparent;
+  }
+
+  :root[data-theme='light'] .hero__panel .pill[aria-current='true'] {
+    border-color: var(--text);
+  }
+
+  /* the black CTA would vanish on the black coat */
+  :root[data-theme='light'] .hero__panel .pill--solid {
+    border-color: #fff;
+  }
+
 }

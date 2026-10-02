@@ -13,15 +13,27 @@ export default function Hero() {
       {isTablet && <div className="hero__word" aria-hidden="true">MANE</div>}
       <img className="hero__photo" src={photo} alt={t.name} width="696" height="1252" />
 
-      <h1 className="hero__role">
-        <span className="sr-only">{t.name} — </span>
-        {t.role[0]}
-        <br />
-        {t.role[1]}
-      </h1>
+      {isTablet ? (
+        <h1 className="hero__role hero__role--split">
+          <span className="sr-only">{t.name} — </span>
+          <span>
+            {t.roleSplit.left[0]}
+            <br />
+            {t.roleSplit.left[1]}
+          </span>
+          <span>{t.roleSplit.right}</span>
+        </h1>
+      ) : (
+        <h1 className="hero__role">
+          <span className="sr-only">{t.name} — </span>
+          {t.role[0]}
+          <br />
+          {t.role[1]}
+        </h1>
+      )}
 
       {/* on desktop the panel is fixed and rendered by Home */}
-      {isTablet && <SidePanel className="hero__panel" />}
+      {isTablet && <SidePanel className="hero__panel" stacked />}
     </section>
   );
 }

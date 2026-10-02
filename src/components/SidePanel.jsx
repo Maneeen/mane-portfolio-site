@@ -46,7 +46,8 @@ function useActiveSection() {
 // on screen its pieces are spread across the hero — the big word, the menu as
 // a row, the experience counter on the right. Scrolling the hero away flies
 // them into the left column.
-export default function SidePanel({ className = '', fly = false }) {
+// `stacked` (mobile hero): the experience counter is two equal lines.
+export default function SidePanel({ className = '', fly = false, stacked = false }) {
   const { t, lang } = usePrefs();
   const active = useActiveSection();
   const panelRef = useRef(null);
@@ -123,10 +124,18 @@ export default function SidePanel({ className = '', fly = false }) {
       )}
 
       <aside ref={panelRef} className={`panel ${className}`}>
-        <div className="panel__exp">
-          <strong>{t.experience.value}</strong>
-          <span>{t.experience.label}</span>
-        </div>
+        {stacked ? (
+          <div className="panel__exp panel__exp--stacked">
+            {t.experience.lines[0]}
+            <br />
+            {t.experience.lines[1]}
+          </div>
+        ) : (
+          <div className="panel__exp">
+            <strong>{t.experience.value}</strong>
+            <span>{t.experience.label}</span>
+          </div>
+        )}
 
         <nav className="panel__nav">
           {sectionIds.map((id) => (

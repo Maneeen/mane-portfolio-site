@@ -114,7 +114,7 @@ function MobileWorks() {
 }
 
 // Scroll distance (in viewport heights) each project holds the stage for
-const STEP_VH = 70;
+const STEP_VH = 35;
 
 export default function Works() {
   const sectionRef = useRef(null);
@@ -212,7 +212,7 @@ export default function Works() {
       </div>
 
       <span ref={cursorRef} className={`works__cursor ${hovered ? 'is-on' : ''}`} aria-hidden="true">
-        {t.works.viewCase}
+        {t.works.cursor}
       </span>
     </section>
   );
