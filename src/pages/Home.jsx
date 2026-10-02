@@ -5,9 +5,14 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Works from '../components/Works';
 import Footer from '../components/Footer';
+import SidePanel from '../components/SidePanel';
+import { usePrefs } from '../context/Prefs';
+import { useIsTablet } from '../hooks/useMediaQuery';
 
 export default function Home() {
   const location = useLocation();
+  const { t } = usePrefs();
+  const isTablet = useIsTablet();
 
   useEffect(() => {
     const id = location.state?.scrollTo;
@@ -21,16 +26,17 @@ export default function Home() {
   }, [location.state]);
 
   useEffect(() => {
-    document.title = 'Mane Airapetyan — UX/UI Designer';
-  }, []);
+    document.title = t.pageTitle;
+  }, [t]);
 
   return (
     <>
-      <Navbar />
+      <Navbar home />
+      {!isTablet && <SidePanel className="panel--fixed" fly />}
       <Hero />
       <About />
       <Works />
-      <Footer />
+      <Footer withPanel />
     </>
   );
 }

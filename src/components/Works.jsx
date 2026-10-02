@@ -1,11 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { projects } from '../data/projects';
+import { projects, localize } from '../data/projects';
+import { usePrefs } from '../context/Prefs';
 import { useIsMobile } from '../hooks/useMediaQuery';
-
-gsap.registerPlugin(ScrollTrigger);
 
 function DetailRow({ label, children }) {
   return (
@@ -15,52 +12,48 @@ function DetailRow({ label, children }) {
         gridTemplateColumns: '120px 1fr',
         gap: 16,
         padding: '14px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        borderBottom: '1px solid var(--line)',
       }}
     >
       <span style={{ color: 'var(--text)', fontSize: 14, fontWeight: 500 }}>{label}</span>
-      <div style={{ color: '#999', fontSize: 14, lineHeight: 1.6 }}>{children}</div>
+      <div style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>{children}</div>
     </div>
   );
 }
 
 function ViewCaseButton({ slug }) {
-  const [hovered, setHovered] = useState(false);
+  const { t } = usePrefs();
   return (
-    <Link
-      to={`/work/${slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 8,
-        marginTop: 20,
-        padding: '11px 24px',
-        borderRadius: 40,
-        border: `1px solid ${hovered ? 'var(--accent)' : 'rgba(255,255,255,0.18)'}`,
-        color: hovered ? 'var(--accent)' : 'var(--text)',
-        fontSize: 14,
-        fontWeight: 500,
-        transition: 'color 0.25s ease, border-color 0.25s ease',
-      }}
-    >
-      View case
-      <span
-        aria-hidden="true"
-        style={{
-          display: 'inline-block',
-          transition: 'transform 0.25s ease',
-          transform: hovered ? 'translate(3px, -3px)' : 'none',
-        }}
-      >
-        ↗
-      </span>
+    <Link to={`/work/${slug}`} className="btn-outline" style={{ marginTop: 20 }}>
+      {t.works.viewCase}
+      <span className="arrow" aria-hidden="true">↗</span>
     </Link>
   );
 }
 
+function ProjectDetails({ project }) {
+  const { t } = usePrefs();
+  return (
+    <div>
+      <DetailRow label={t.works.overview}>
+        <p style={{ margin: 0 }}>{project.desc}</p>
+      </DetailRow>
+      <DetailRow label={t.works.tags}>
+        {project.tags.map((tag) => (
+          <p key={tag} style={{ margin: 0 }}>{tag}</p>
+        ))}
+      </DetailRow>
+      <DetailRow label={t.works.industry}>
+        {project.industry.map((ind) => (
+          <p key={ind} style={{ margin: 0 }}>{ind}</p>
+        ))}
+      </DetailRow>
+    </div>
+  );
+}
+
 function MobileWorks() {
+  const { lang } = usePrefs();
   return (
     <section
       id="works"
@@ -111,22 +104,7 @@ function MobileWorks() {
             />
           </Link>
 
-          {/* Details */}
-          <div>
-            <DetailRow label="Overview">
-              <p style={{ margin: 0 }}>{project.desc}</p>
-            </DetailRow>
-            <DetailRow label="Tags">
-              {project.tags.map((tag) => (
-                <p key={tag} style={{ margin: 0 }}>{tag}</p>
-              ))}
-            </DetailRow>
-            <DetailRow label="Industry">
-              {project.industry.map((ind) => (
-                <p key={ind} style={{ margin: 0 }}>{ind}</p>
-              ))}
-            </DetailRow>
-          </div>
+          <ProjectDetails project={localize(project, lang)} />
 
           <ViewCaseButton slug={project.slug} />
         </div>
@@ -135,164 +113,107 @@ function MobileWorks() {
   );
 }
 
-function WorkTitle({ project, active }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div className="work-title" style={{ padding: '20px 0' }}>
-      <Link
-        to={`/work/${project.slug}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{ display: 'inline-block' }}
-      >
-        <h2
-          style={{
-            fontSize: 'clamp(32px, 5vw, 72px)',
-            fontWeight: 600,
-            color: active ? 'var(--text)' : 'var(--dim)',
-            transition: 'color 0.4s ease',
-            lineHeight: 1.15,
-          }}
-        >
-          {project.title}
-          {/* zero-width so it never wraps to its own line on long titles */}
-          <span
-            aria-hidden="true"
-            style={{
-              display: 'inline-block',
-              width: 0,
-              overflow: 'visible',
-              whiteSpace: 'nowrap',
-              textIndent: '0.18em',
-              fontWeight: 500,
-              color: 'var(--accent)',
-              opacity: hovered ? 1 : 0,
-              transition: 'opacity 0.3s ease, transform 0.3s ease',
-              transform: hovered ? 'translate(0, 0)' : 'translate(-8px, 8px)',
-            }}
-          >
-            ↗
-          </span>
-        </h2>
-      </Link>
-    </div>
-  );
-}
+// Scroll distance (in viewport heights) each project holds the stage for
+const STEP_VH = 70;
 
 export default function Works() {
   const sectionRef = useRef(null);
+  const cursorRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hovered, setHovered] = useState(false);
   const isMobile = useIsMobile();
+  const { t, lang } = usePrefs();
 
+  // The section is tall and its stage is sticky: scroll progress through the
+  // section picks which project is on stage.
   useEffect(() => {
     if (isMobile) return;
-
-    const items = gsap.utils.toArray('.work-title');
-
-    items.forEach((item, i) => {
-      ScrollTrigger.create({
-        trigger: item,
-        start: 'top center',
-        end: 'bottom center',
-        onEnter: () => setActiveIndex(i),
-        onEnterBack: () => setActiveIndex(i),
-      });
-    });
-
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    const onScroll = () => {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const travel = rect.height - window.innerHeight;
+      const progress = Math.min(Math.max(-rect.top / travel, 0), 0.9999);
+      setActiveIndex(Math.floor(progress * projects.length));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, [isMobile]);
 
   if (isMobile) {
     return <MobileWorks />;
   }
 
-  const active = projects[activeIndex];
+  const active = localize(projects[activeIndex], lang);
+
+  const goTo = (i) => {
+    const rect = sectionRef.current.getBoundingClientRect();
+    const travel = rect.height - window.innerHeight;
+    window.scrollTo({
+      top: window.scrollY + rect.top + ((i + 0.5) / projects.length) * travel,
+      behavior: 'smooth',
+    });
+  };
+
+  const moveCursor = (e) => {
+    cursorRef.current.style.left = `${e.clientX}px`;
+    cursorRef.current.style.top = `${e.clientY}px`;
+  };
 
   return (
     <section
       id="works"
       ref={sectionRef}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        minHeight: '100vh',
-        position: 'relative',
-      }}
+      className="works with-panel"
+      style={{ height: `${projects.length * STEP_VH + 100}vh` }}
     >
-      {/* Left — sticky detail panel */}
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '92px clamp(24px, 3vw, 40px) 28px',
-        }}
-      >
-        {/* Image — flexible height so it never clips under the navbar */}
+      <div className="works__stage">
         <Link
           to={`/work/${active.slug}`}
-          style={{
-            width: '100%',
-            flex: '1 1 auto',
-            minHeight: 0,
-            position: 'relative',
-            marginBottom: 24,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
+          className="works__card"
+          aria-label={`${active.title} — ${t.works.viewCase}`}
+          onMouseEnter={(e) => {
+            moveCursor(e);
+            setHovered(true);
           }}
+          onMouseMove={moveCursor}
+          onMouseLeave={() => setHovered(false)}
         >
           {projects.map((project, i) => (
             <img
               key={project.slug}
               src={project.image}
-              alt={project.title}
-              style={{
-                position: 'absolute',
-                maxWidth: project.small ? '50%' : '85%',
-                maxHeight: project.small ? '50%' : '85%',
-                objectFit: 'contain',
-                opacity: i === activeIndex ? 1 : 0,
-                transition: 'opacity 0.5s ease',
-              }}
+              alt=""
+              className={
+                project.cover ? 'is-cover' : project.mockup ? 'is-mockup' : project.cardBg ? 'is-fill' : undefined
+              }
+              style={{ opacity: i === activeIndex ? 1 : 0, background: project.cardBg }}
             />
           ))}
         </Link>
 
-        {/* Details table */}
-        <div>
-          <DetailRow label="Overview">
-            <p style={{ margin: 0 }}>{active.desc}</p>
-          </DetailRow>
-          <DetailRow label="Tags">
-            {active.tags.map((tag) => (
-              <p key={tag} style={{ margin: 0 }}>{tag}</p>
-            ))}
-          </DetailRow>
-          <DetailRow label="Industry">
-            {active.industry.map((ind) => (
-              <p key={ind} style={{ margin: 0 }}>{ind}</p>
-            ))}
-          </DetailRow>
-        </div>
+        <ul className="works__titles">
+          {projects.map((project, i) => (
+            <li key={project.slug}>
+              <button aria-current={i === activeIndex ? 'true' : undefined} onClick={() => goTo(i)}>
+                {project.title}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-        <div>
-          <ViewCaseButton slug={active.slug} />
+        <div className="works__meta">
+          <p className="works__desc">{active.desc}</p>
+          <p className="works__tags">{active.tags.join(' · ')}</p>
         </div>
       </div>
 
-      {/* Right — project titles */}
-      <div style={{ padding: '50vh clamp(20px, 3vw, 40px) 20vh 20px' }}>
-        {projects.map((project, i) => (
-          <WorkTitle key={project.slug} project={project} active={i === activeIndex} />
-        ))}
-
-        <div style={{ height: '50vh' }} />
-      </div>
+      <span ref={cursorRef} className={`works__cursor ${hovered ? 'is-on' : ''}`} aria-hidden="true">
+        {t.works.viewCase}
+      </span>
     </section>
   );
 }

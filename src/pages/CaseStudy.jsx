@@ -3,7 +3,8 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { getProject, getNextProject } from '../data/projects';
+import { getProject, getNextProject, localize } from '../data/projects';
+import { usePrefs } from '../context/Prefs';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
 const fadeUp = {
@@ -25,13 +26,14 @@ function MetaBlock({ label, children }) {
       >
         {label}
       </div>
-      <div style={{ fontSize: 14, lineHeight: 1.7, color: '#ccc' }}>{children}</div>
+      <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text)', opacity: 0.8 }}>{children}</div>
     </div>
   );
 }
 
 function BackLink({ style }) {
   const [hovered, setHovered] = useState(false);
+  const { t } = usePrefs();
   return (
     <Link
       to="/"
@@ -44,7 +46,7 @@ function BackLink({ style }) {
         gap: 8,
         fontSize: 14,
         fontWeight: 500,
-        color: hovered ? 'var(--text)' : '#888',
+        color: hovered ? 'var(--text)' : 'var(--muted)',
         transition: 'color 0.25s ease',
         ...style,
       }}
@@ -59,7 +61,7 @@ function BackLink({ style }) {
       >
         ←
       </span>
-      All works
+      {t.caseStudy.back}
     </Link>
   );
 }
@@ -83,7 +85,7 @@ function CaseCanvas({ project, isMobile }) {
           background: caseStudy.bg,
           borderRadius: isMobile ? 12 : 20,
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.08)',
+          border: '1px solid var(--line)',
           fontSize: 0, // kill inline-image gaps between slices
         }}
       >
@@ -107,6 +109,7 @@ function CaseCanvas({ project, isMobile }) {
 }
 
 function ComingSoon({ project, isMobile }) {
+  const { t } = usePrefs();
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -123,9 +126,8 @@ function ComingSoon({ project, isMobile }) {
           position: 'relative',
           borderRadius: isMobile ? 12 : 20,
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.08)',
-          background:
-            'radial-gradient(80% 100% at 50% 0%, rgba(255,200,46,0.07) 0%, rgba(255,255,255,0.02) 55%, transparent 100%)',
+          border: '1px solid var(--line)',
+          background: 'var(--surface)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -148,13 +150,13 @@ function ComingSoon({ project, isMobile }) {
               display: 'inline-block',
               padding: '8px 18px',
               borderRadius: 40,
-              border: '1px solid rgba(255,255,255,0.15)',
+              border: '1px solid var(--line)',
               fontSize: 13,
-              color: '#aaa',
+              color: 'var(--muted)',
               letterSpacing: 0.5,
             }}
           >
-            Full case study — coming soon
+            {t.caseStudy.comingSoon}
           </div>
         </div>
       </div>
@@ -164,6 +166,7 @@ function ComingSoon({ project, isMobile }) {
 
 function NextProject({ project }) {
   const [hovered, setHovered] = useState(false);
+  const { t } = usePrefs();
   return (
     <Link
       to={`/work/${project.slug}`}
@@ -180,7 +183,7 @@ function NextProject({ project }) {
           marginBottom: 18,
         }}
       >
-        Next project
+        {t.caseStudy.next}
       </div>
       <div
         style={{
@@ -188,7 +191,7 @@ function NextProject({ project }) {
           fontWeight: 700,
           lineHeight: 1,
           letterSpacing: '-0.02em',
-          color: hovered ? 'var(--accent)' : 'var(--text)',
+          color: hovered ? 'var(--muted)' : 'var(--text)',
           transition: 'color 0.35s ease',
         }}
       >
@@ -210,7 +213,7 @@ function NextProject({ project }) {
         </span>
       </div>
       {project.tagline && (
-        <div style={{ marginTop: 16, fontSize: 15, color: '#888' }}>{project.tagline}</div>
+        <div style={{ marginTop: 16, fontSize: 15, color: 'var(--muted)' }}>{project.tagline}</div>
       )}
     </Link>
   );
@@ -218,7 +221,9 @@ function NextProject({ project }) {
 
 export default function CaseStudy() {
   const { slug } = useParams();
-  const project = getProject(slug);
+  const { t, lang } = usePrefs();
+  const source = getProject(slug);
+  const project = source && localize(source, lang);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -227,7 +232,7 @@ export default function CaseStudy() {
 
   if (!project) return <Navigate to="/" replace />;
 
-  const next = getNextProject(slug);
+  const next = localize(getNextProject(slug), lang);
 
   return (
     <>
@@ -268,7 +273,7 @@ export default function CaseStudy() {
             transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             style={{
               fontSize: 'clamp(17px, 2.2vw, 24px)',
-              color: '#999',
+              color: 'var(--muted)',
               marginBottom: isMobile ? 36 : 56,
               maxWidth: 640,
             }}
@@ -281,7 +286,7 @@ export default function CaseStudy() {
           {...fadeUp}
           transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            borderTop: '1px solid rgba(255,255,255,0.1)',
+            borderTop: '1px solid var(--line)',
             paddingTop: isMobile ? 28 : 36,
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr 1fr' : '1.6fr 1fr 1fr 1fr',
@@ -289,19 +294,19 @@ export default function CaseStudy() {
           }}
         >
           <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
-            <MetaBlock label="Overview">{project.desc}</MetaBlock>
+            <MetaBlock label={t.caseStudy.overview}>{project.desc}</MetaBlock>
           </div>
-          <MetaBlock label="Client">
+          <MetaBlock label={t.caseStudy.client}>
             {project.client}
             <br />
             {project.year}
           </MetaBlock>
-          <MetaBlock label="Industry">
+          <MetaBlock label={t.caseStudy.industry}>
             {project.industry.map((x) => (
               <div key={x}>{x}</div>
             ))}
           </MetaBlock>
-          <MetaBlock label="Services">
+          <MetaBlock label={t.caseStudy.services}>
             {project.tags.map((x) => (
               <div key={x}>{x}</div>
             ))}
