@@ -974,8 +974,10 @@ img {
 }
 
 .mwork__cta {
+  width: 100%;
+  justify-content: center;
   gap: 8px;
-  height: 52px;
+  height: 48px;
   margin-top: 12px;
   font-size: 15px;
 }

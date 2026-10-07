@@ -34,7 +34,7 @@ function MobileWorks() {
               <img src={project.image} alt="" loading="lazy" />
             </Link>
 
-            <Link to={`/work/${project.slug}`} className="btn btn--block mwork__cta">
+            <Link to={`/work/${project.slug}`} className="pill mwork__cta">
               {t.works.viewCase}
               <span className="arrow" aria-hidden="true">↗</span>
             </Link>
