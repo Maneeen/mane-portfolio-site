@@ -116,40 +116,6 @@ export const projects = [
     ),
   },
   {
-    slug: 'architecture-bureau',
-    ru: {
-      tags: ['Айдентика', 'Веб-дизайн', 'Фронтенд-разработка', 'Полиграфия'],
-      industry: ['Архитектура', 'Дизайн'],
-      desc: 'Сольный проект с полным объёмом работ: стратегия, айдентика, печатные материалы и фронтенд. Разработала систему бренда, которая передаёт точность и видение, и собрала адаптивный лендинг на Framer с портфолио бюро. Все решения, от шрифта до вёрстки, принимала и реализовывала самостоятельно.',
-    },
-    title: 'Architecture Bureau',
-    year: '2023',
-    tags: ['Brand Identity', 'Web Design', 'Frontend Development', 'Print'],
-    industry: ['Architecture', 'Design'],
-    client: 'Architecture Bureau',
-    desc: "Solo project covering the full scope — strategy, visual identity, print materials, and frontend implementation. Designed a brand system that communicates precision and vision, then built a responsive Framer landing page to showcase the bureau's portfolio. Every decision from typeface to layout was made and executed independently.",
-    image: '/mockups/arch.png',
-    cover: true,
-  },
-  {
-    slug: 'vk-mini-app',
-    ru: {
-      tags: ['UI/UX дизайн', 'Гейм-дизайн', 'Мини-приложение', 'Мобайл'],
-      industry: ['Развлечения', 'Соцсети'],
-      desc: 'Игра-калькулятор для платформы мини-приложений VK, сделанная вместе с командой компании. Концепция соединяет пользу и юмор в формате, знакомом русскоязычной аудитории. Интерфейс понятен с первого взгляда, с ним весело взаимодействовать, и он органично смотрится в экосистеме VK.',
-    },
-    title: 'VK Mini App',
-    year: '2023',
-    tags: ['UI/UX Design', 'Game Design', 'Mini App', 'Mobile'],
-    industry: ['Entertainment', 'Social Media'],
-    client: 'VK',
-    desc: "A creative calculator game built for VK's mini-app platform in collaboration with the company's team. The concept blends utility and humour in a format familiar to Russian-speaking users. Designed to be instantly understandable, fun to interact with, and native to the VK ecosystem.",
-    image: '/mockups/vk.png',
-    // transparent mockup: the card takes the page colour (white / black by theme)
-    cardBg: 'var(--bg)',
-    mockup: true,
-  },
-  {
     slug: 'devteam-space',
     ru: {
       tagline: 'Логотип и айдентика для devteam.space',
