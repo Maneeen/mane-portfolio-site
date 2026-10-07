@@ -6,6 +6,10 @@ import Skills from './Skills';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile browsers fire `resize` whenever the address bar collapses mid-scroll;
+// recomputing triggers at that moment causes a visible jump.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 export default function About() {
   const { t, lang } = usePrefs();
   const statementRef = useRef(null);
@@ -34,14 +38,15 @@ export default function About() {
       );
     }, statementRef);
 
-    // Refresh after layout settles (fonts / images load)
-    const timers = [300, 1500].map((ms) => setTimeout(() => ScrollTrigger.refresh(), ms));
-    const onResize = () => ScrollTrigger.refresh();
-    window.addEventListener('resize', onResize);
+    // One refresh once web fonts have settled the layout; ScrollTrigger handles
+    // genuine (width) resizes itself.
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (!cancelled) ScrollTrigger.refresh();
+    });
 
     return () => {
-      timers.forEach(clearTimeout);
-      window.removeEventListener('resize', onResize);
+      cancelled = true;
       ctx.revert();
     };
   }, [lang]);
