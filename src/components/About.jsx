@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePrefs } from '../context/Prefs';
+import Skills from './Skills';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,20 +67,8 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about__row">
-          <div className="label">{a.skillsLabel}</div>
-          <div className="about__skills">
-            {a.skills.map((group) => (
-              <div key={group.title}>
-                <h3>{group.title}</h3>
-                <ul>
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        <div className="about__row about__row--skills">
+          <Skills />
         </div>
       </div>
     </section>

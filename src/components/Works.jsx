@@ -2,113 +2,45 @@ import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects, localize } from '../data/projects';
 import { usePrefs } from '../context/Prefs';
-import { useIsMobile } from '../hooks/useMediaQuery';
-
-function DetailRow({ label, children }) {
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '120px 1fr',
-        gap: 16,
-        padding: '14px 0',
-        borderBottom: '1px solid var(--line)',
-      }}
-    >
-      <span style={{ color: 'var(--text)', fontSize: 14, fontWeight: 500 }}>{label}</span>
-      <div style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>{children}</div>
-    </div>
-  );
-}
-
-function ViewCaseButton({ slug }) {
-  const { t } = usePrefs();
-  return (
-    <Link to={`/work/${slug}`} className="btn-outline" style={{ marginTop: 20 }}>
-      {t.works.viewCase}
-      <span className="arrow" aria-hidden="true">↗</span>
-    </Link>
-  );
-}
-
-function ProjectDetails({ project }) {
-  const { t } = usePrefs();
-  return (
-    <div>
-      <DetailRow label={t.works.overview}>
-        <p style={{ margin: 0 }}>{project.desc}</p>
-      </DetailRow>
-      <DetailRow label={t.works.tags}>
-        {project.tags.map((tag) => (
-          <p key={tag} style={{ margin: 0 }}>{tag}</p>
-        ))}
-      </DetailRow>
-      <DetailRow label={t.works.industry}>
-        {project.industry.map((ind) => (
-          <p key={ind} style={{ margin: 0 }}>{ind}</p>
-        ))}
-      </DetailRow>
-    </div>
-  );
-}
+import { useIsTablet } from '../hooks/useMediaQuery';
 
 function MobileWorks() {
-  const { lang } = usePrefs();
+  const { lang, t } = usePrefs();
   return (
-    <section
-      id="works"
-      style={{
-        padding: '80px 24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 80,
-      }}
-    >
-      {projects.map((project) => (
-        <div key={project.slug}>
-          {/* Title */}
-          <Link to={`/work/${project.slug}`}>
-            <h2
-              style={{
-                fontSize: 'clamp(36px, 9vw, 56px)',
-                fontWeight: 600,
-                lineHeight: 1.1,
-                marginBottom: 24,
-                wordBreak: 'break-word',
-              }}
+    <section id="works" className="section mworks">
+      {projects.map((raw) => {
+        const project = localize(raw, lang);
+        const mediaClass = project.cover ? 'is-cover' : project.mockup ? 'is-mockup' : project.cardBg ? 'is-fill' : '';
+        return (
+          <article key={project.slug} className="mwork">
+            <Link to={`/work/${project.slug}`}>
+              <h2 className="mwork__title">{project.title}</h2>
+            </Link>
+
+            <ul className="mwork__tags" aria-label={t.works.industry}>
+              {project.industry.map((ind) => (
+                <li key={ind} className="pill pill--tag">
+                  {ind}
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              to={`/work/${project.slug}`}
+              className={`mwork__media ${mediaClass}`}
+              style={{ background: project.cardBg }}
+              aria-label={`${project.title} — ${t.works.viewCase}`}
             >
-              {project.title}
-            </h2>
-          </Link>
+              <img src={project.image} alt="" loading="lazy" />
+            </Link>
 
-          {/* Image */}
-          <Link
-            to={`/work/${project.slug}`}
-            style={{
-              width: '100%',
-              aspectRatio: '4/3',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 24,
-            }}
-          >
-            <img
-              src={project.image}
-              alt={project.title}
-              style={{
-                maxWidth: project.small ? '55%' : '90%',
-                maxHeight: project.small ? '55%' : '90%',
-                objectFit: 'contain',
-              }}
-            />
-          </Link>
-
-          <ProjectDetails project={localize(project, lang)} />
-
-          <ViewCaseButton slug={project.slug} />
-        </div>
-      ))}
+            <Link to={`/work/${project.slug}`} className="btn btn--block mwork__cta">
+              {t.works.viewCase}
+              <span className="arrow" aria-hidden="true">↗</span>
+            </Link>
+          </article>
+        );
+      })}
     </section>
   );
 }
@@ -121,7 +53,7 @@ export default function Works() {
   const cursorRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
-  const isMobile = useIsMobile();
+  const isMobile = useIsTablet();
   const { t, lang } = usePrefs();
 
   // The section is tall and its stage is sticky: scroll progress through the
