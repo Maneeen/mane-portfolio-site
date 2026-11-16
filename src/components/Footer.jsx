@@ -1,10 +1,11 @@
 import { usePrefs } from '../context/Prefs';
 import { CONTACT_HREF } from '../data/site';
+import { RolePreviews } from './Roles';
 
 const EMAIL = 'mane.airapetyan12345@gmail.com';
 
 // `withPanel`: leave room for the fixed side panel (home page, desktop)
-export default function Footer({ withPanel = false }) {
+export default function Footer({ withPanel = false, role = 'product' }) {
   const { t } = usePrefs();
   const c = t.contacts;
 
@@ -20,6 +21,8 @@ export default function Footer({ withPanel = false }) {
 
   return (
     <footer id="footer" className={`section contacts ${withPanel ? 'with-panel' : ''}`}>
+      <RolePreviews current={role} />
+
       <div className="label">{c.label}</div>
       <h2 className="contacts__heading">{c.heading}</h2>
 

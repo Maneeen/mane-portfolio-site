@@ -1,0 +1,203 @@
+:root, :root[data-for] {
+  --sc-theme: #0A0A0B;
+  --sc-bolt: #E84797;
+  --sc-hi: #FFFFFF;
+  --sc-soft: #F6F6F3;
+  --sc-hair: #DEDED8;
+  --ink-3: #6E6E69;
+  --sc-ink-b: rgba(17, 17, 17, 0.66);
+  --sc-ink-c: rgba(17, 17, 17, 0.74);
+  --acc-ink: #AD2163;
+  --sc-pr-d: var(--ink);
+  --sc-pr-s: var(--ink);
+  --sc-on-ink-2: #A3A0A0;
+  --sc-pr-1: #E0408F;
+  --sc-pr-2: #F27DB6;
+  --sc-pr-3: #FFD3E8;
+  --sc-pr-4: #FFF0F7;
+  --sc-pr-ring: transparent;
+  --sc-pr-big: currentColor;
+  --sc-eco: var(--ink);
+  --sc-eco-line: var(--ink);
+  --sc-d-card: #1A1A1A;
+  --sc-d-dot: #1F1F1F;
+  --sc-d-hair: rgba(255, 255, 255, 0.16);
+  --sc-d-ring: rgba(255, 255, 255, 0.12);
+  --sc-sw-f1: #0A0A0B;
+  --sc-sw-f2: #E84797;
+  --sc-sw-l1: #F3F3F1;
+  --sc-sw-l2: #D12F82;
+  --sc-sw-g1: #121417;
+  --sc-sw-g2: #3461E0;
+  --sc-sw-a: var(--sc-sw-f1);
+  --sc-sw-b: var(--sc-sw-f2);
+  --sc-sw-ring: rgba(255, 255, 255, 0.28);
+  --acc-fill: #D12F82;
+  --on-acc-fill: #FFFFFF;
+}
+
+:root[data-scheme="light"], :root[data-scheme="light"][data-for] {
+  --sc-theme: #FFFFFF;
+  --dark: #FFFFFF;
+  --dark-2: #F1F1F4;
+  --dark-3: #E5E5EA;
+  --on-dark: #0F0F10;
+  --on-dark-2: #54545C;
+  --line-dark: #DCDCE1;
+  --shadow-dark: 0 0 0 1px rgba(15, 15, 16, 0.08), 0 40px 80px -30px rgba(15, 15, 16, 0.28);
+  --ink-3: #6C6C72;
+  --acc: #D12F82;
+  --acc-ink: #AD2163;
+  --acc-strong: #AD2163;
+  --acc-fill: #D12F82;
+  --on-acc: #FFFFFF;
+  --on-acc-fill: #FFFFFF;
+  --t-beauty: #EDEDF1;
+  --t-plavno: #EDEDF1;
+  --t-kapsula: #EDEDF1;
+  --sc-hi: #0F0F10;
+  --sc-pr-1: #EDEDF1;
+  --sc-pr-2: #F5F5F8;
+  --sc-pr-3: #FFFFFF;
+  --sc-pr-4: #FFFFFF;
+  --sc-pr-ring: #D12F82;
+  --sc-pr-big: #AD2163;
+  --sc-pr-d: var(--ink-2);
+  --sc-pr-s: var(--ink-2);
+  --sc-eco: #FFFFFF;
+  --sc-eco-line: #D12F82;
+  --sc-d-card: #F4F4F7;
+  --sc-d-dot: #FFFFFF;
+  --sc-d-hair: rgba(15, 15, 16, 0.14);
+  --sc-d-ring: rgba(15, 15, 16, 0.1);
+  --sc-sw-a: var(--sc-sw-l1);
+  --sc-sw-b: var(--sc-sw-l2);
+  --sc-sw-ring: rgba(15, 15, 16, 0.18);
+}
+
+:root[data-scheme="graphite"], :root[data-scheme="graphite"][data-for] {
+  --sc-theme: #121417;
+  --dark: #121417;
+  --dark-2: #1B1E23;
+  --dark-3: #272B31;
+  --on-dark: #E8EBEF;
+  --on-dark-2: #A2A9B3;
+  --line-dark: #353B44;
+  --device: #0C0D0F;
+  --device-edge: #2B2F35;
+  --bg: #EDEFF2;
+  --bg-2: #E1E5EA;
+  --surface: #FFFFFF;
+  --ink: #121417;
+  --ink-2: #49515C;
+  --ink-3: #5E6672;
+  --line: #D3D9E0;
+  --on-light: #121417;
+  --sc-g-acc: #3461E0;
+  --sc-g-acc-ink: #2A4FC2;
+  --sc-g-acc-fill: #2F5AD6;
+  --sc-g-acc-soft: #D6E0FA;
+  --sc-g-acc-tint: #EBF0FD;
+  --acc: var(--sc-g-acc);
+  --acc-ink: var(--sc-g-acc-ink);
+  --acc-strong: var(--sc-g-acc-fill);
+  --acc-soft: var(--sc-g-acc-soft);
+  --acc-tint: var(--sc-g-acc-tint);
+  --acc-fill: var(--sc-g-acc-fill);
+  --on-acc: #FFFFFF;
+  --on-acc-fill: #FFFFFF;
+  --c-beauty: var(--sc-g-acc);
+  --c-plavno: #A9BCE6;
+  --c-plavno-soft: #D9E1F2;
+  --p-web: var(--sc-g-acc-soft);
+  --p-bot: var(--sc-g-acc);
+  --p-pay: #8FA3C7;
+  --p-app: var(--sc-bolt);
+  --p-club: #A9BCE6;
+  --p-crm: var(--sc-g-acc-ink);
+  --p-dash: #C9D3E6;
+  --t-beauty: #DEE3EA;
+  --t-sezon: #DEE3EA;
+  --t-shpor: #DEE3EA;
+  --t-plavno: #DEE3EA;
+  --t-karkas: #DEE3EA;
+  --t-kapsula: #DEE3EA;
+  --t-blog: #DEE3EA;
+  --shadow: 0 2px 6px rgba(18, 20, 23, 0.06), 0 34px 64px -30px rgba(18, 20, 23, 0.42);
+  --sc-bolt: #5B83F0;
+  --sc-soft: #F2F4F7;
+  --sc-hair: #D3D9E0;
+  --sc-ink-b: rgba(18, 20, 23, 0.7);
+  --sc-ink-c: rgba(18, 20, 23, 0.78);
+  --sc-pr-d: rgba(18, 20, 23, 0.88);
+  --sc-pr-s: rgba(18, 20, 23, 0.88);
+  --sc-on-ink-2: var(--on-dark-2);
+  --sc-pr-1: #9DB4EE;
+  --sc-pr-2: #C4D3F6;
+  --sc-pr-3: #E6ECFB;
+  --sc-pr-4: #F5F8FE;
+  --sc-d-card: #1B1E23;
+  --sc-d-dot: #22262C;
+  --sc-d-hair: rgba(232, 235, 239, 0.16);
+  --sc-d-ring: rgba(232, 235, 239, 0.12);
+  --sc-sw-a: var(--sc-sw-g1);
+  --sc-sw-b: var(--sc-sw-g2);
+}
+
+.logo polygon { fill: var(--sc-bolt); stroke: var(--sc-bolt); }
+
+.hx .pill.solid, .ofb .pill.solid, .pcz .pc-eco .pill.solid, .pc-promo .pill.solid, .pc-badge { background: var(--acc-fill); color: var(--on-acc-fill); }
+.ofb { color: var(--sc-hi); }
+.pc-promo { background: var(--sc-eco); color: var(--sc-hi); border-color: var(--sc-eco-line); }
+.pc-big small { color: var(--sc-hi); }
+.pcz .pc-eco { background: var(--sc-eco); color: var(--sc-hi); border-color: var(--sc-eco-line); }
+.ps-track::before { background: var(--sc-hair); }
+.rz-bar { background: var(--sc-hair); }
+.rz-op, .rz-link input { border-color: var(--sc-hair); }
+.rz-gaps li { background: var(--sc-soft); }
+
+.pn-o { background: linear-gradient(115deg, var(--sc-pr-1) 0%, var(--sc-pr-2) 30%, var(--sc-pr-3) 48%, var(--sc-pr-4) 50%, var(--sc-pr-3) 52%, var(--sc-pr-2) 70%, var(--sc-pr-1) 100%); background-size: 260% 100%; box-shadow: inset 0 0 0 2px var(--sc-pr-ring); }
+.pn-o-big { color: var(--sc-pr-big); }
+.pn-o-d { color: var(--sc-pr-d); }
+.pn-o-p s { color: var(--sc-pr-s); }
+.rz-num .is-up small { color: var(--sc-on-ink-2); }
+.proc .ps-card small { color: var(--on-dark-2); }
+:root[data-scheme="graphite"] .stage-b .bw { --acc: var(--sc-g-acc); --acc-ink: var(--sc-g-acc-ink); --acc-strong: var(--sc-g-acc-fill); --acc-soft: var(--sc-g-acc-soft); --acc-tint: var(--sc-g-acc-tint); }
+.story-b .bw small { color: var(--sc-ink-b); }
+.story-b .bw p { color: var(--sc-ink-c); }
+
+.proc .ps-track::before { background: var(--sc-d-hair) !important; }
+.proc .ps-dot b { background: var(--sc-d-dot) !important; box-shadow: inset 0 0 0 1px var(--sc-d-hair) !important; }
+.proc .ps-dot[aria-pressed="true"] b, .proc .ps-card .ps-num { background: var(--acc-fill) !important; color: var(--on-acc-fill) !important; }
+.proc .ps-card { background: var(--sc-d-card) !important; border-color: var(--sc-d-ring) !important; }
+
+.scm-btn { width: 44px; padding: 0; background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.bar.on-dark .scm-btn { background: var(--dark-2); color: var(--on-dark); box-shadow: inset 0 0 0 1px var(--line-dark); }
+.scm-sw { display: block; flex: none; width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--sc-sw-a) 50%, var(--sc-sw-b) 50%); box-shadow: inset 0 0 0 1px var(--sc-sw-ring); }
+.scm-sw-fuchsia { --sc-sw-a: var(--sc-sw-f1); --sc-sw-b: var(--sc-sw-f2); --sc-sw-ring: var(--line); }
+.scm-sw-light { --sc-sw-a: var(--sc-sw-l1); --sc-sw-b: var(--sc-sw-l2); --sc-sw-ring: var(--line); }
+.scm-sw-graphite { --sc-sw-a: var(--sc-sw-g1); --sc-sw-b: var(--sc-sw-g2); --sc-sw-ring: var(--line); }
+.scm-pop { position: fixed; inset: calc(var(--bar-h) + 4px) var(--pad) auto auto; margin: 0; width: 232px; padding: 8px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.scm-pop:popover-open { display: grid; gap: 2px; }
+.scm-h { padding: 6px 12px 6px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.scm-o { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: transparent; color: var(--ink); font: inherit; font-size: 15px; font-weight: 500; text-align: left; cursor: pointer; }
+.scm-o[aria-pressed="true"] { background: var(--bg-2); }
+.scm-ok { width: 16px; height: 16px; margin-left: auto; visibility: hidden; }
+.scm-o[aria-pressed="true"] .scm-ok { visibility: visible; }
+.scm-o:focus-visible, .scm-btn:focus-visible { outline: 2px solid var(--acc-ink); outline-offset: 2px; }
+.scm-o:focus-visible { outline-offset: -2px; }
+@media (hover: hover) and (pointer: fine) {
+  .scm-btn:hover { background: var(--bg-2); }
+  .bar.on-dark .scm-btn:hover { background: var(--dark-3); }
+  .scm-o:not([aria-pressed="true"]):hover { background: var(--bg); }
+}
+@media (max-width: 760px) {
+  .bar .scm-btn { height: 40px; width: 40px; position: relative; }
+  .bar .scm-btn::after { content: ""; position: absolute; inset: -2px; }
+  .scm-pop { inset: calc(var(--bar-h) + 4px) 12px auto auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scm-pop { opacity: 0; transform: translateY(-6px); transition: opacity 160ms var(--e-out), transform 200ms var(--e-out), overlay 200ms allow-discrete, display 200ms allow-discrete; }
+  .scm-pop:popover-open { opacity: 1; transform: none; }
+  @starting-style { .scm-pop:popover-open { opacity: 0; transform: translateY(-6px); } }
+}

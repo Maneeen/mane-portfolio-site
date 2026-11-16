@@ -1,0 +1,161 @@
+/* v15: боль на первом экране */
+.hx-sol { max-width: 52ch; }
+.hx-pq { font-size: 14px; color: var(--on-dark-2); }
+.hx-pain ul { list-style: none; display: grid; gap: 6px; margin-top: 8px; }
+.hx-pain li { position: relative; padding-left: 22px; font-size: 18px; line-height: 1.3; color: var(--on-dark); }
+.hx-pain li::before { content: ""; position: absolute; left: 2px; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--acc); }
+.hx-sol { font-size: 18px; font-weight: 400; line-height: 1.4; color: var(--on-dark-2); }
+
+/* боли: спокойный список после разбора */
+.pn { background: var(--dark); color: var(--on-dark); padding: 56px var(--pad); }
+.pn h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pn-l { list-style: none; display: grid; gap: 10px; margin-top: 22px; max-width: 640px; }
+.pn-l li { position: relative; padding-left: 24px; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.35; color: var(--on-dark); }
+.pn-l li::before { content: ""; position: absolute; left: 2px; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--acc); }
+@media (max-width: 760px) { .pn { padding: 44px 16px; } }
+
+/* главный оффер перед квизом, в стиле старой карточки скидки */
+.ofb { background: var(--dark); color: #fff; padding: 56px var(--pad); display: grid; gap: 28px; }
+.ofb-big { font-size: clamp(96px, 16vw, 220px); font-weight: 600; letter-spacing: -0.06em; line-height: 0.85; color: var(--acc); }
+.ofb-k { font-size: 20px; margin-top: 8px; }
+.ofb h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-top: 20px; }
+.ofb-d { font-size: 17px; margin-top: 12px; max-width: 46ch; color: var(--on-dark-2); }
+.ofb-r { display: grid; gap: 16px; align-content: end; }
+.ofb-p { font-size: clamp(32px, 3.6vw, 52px); font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ofb-p s { font-size: 0.5em; font-weight: 400; color: var(--on-dark-2); margin-right: 10px; text-decoration-thickness: 2px; }
+.ofb .pill.solid { background: var(--acc); color: #fff; justify-content: center; }
+@media (min-width: 900px) { .ofb { grid-template-columns: 1fr auto; align-items: end; column-gap: 64px; padding: 80px var(--pad); } .ofb-r { justify-items: end; text-align: right; } }
+@media (max-width: 760px) { .ofb { padding: 48px 16px; } }
+
+/* тарифы: яркая подложка, главный — «Экосистема» */
+.pcz { background: var(--bg); }
+.pcz .pc { background: #fff; border: 1px solid var(--line); }
+.pcz .pc-eco { background: var(--ink); color: #fff; border: 2px solid var(--ink); }
+.pcz .pc-eco .pc-d, .pcz .pc-eco ul { color: var(--on-dark-2); }
+.pcz .pc-eco .pc-f b s { color: var(--on-dark-2); }
+.pcz .pc-eco .pill.solid { background: var(--acc); color: #fff; }
+.pcz .pc-vip { background: #fff; }
+@media (min-width: 900px) { .pcz .pcs { grid-template-columns: 1fr 1.08fr 1fr; align-items: stretch; } .pcz .pc-eco { transform: translateY(-12px); } }
+
+/* FAQ */
+.faq { background: var(--bg); color: var(--ink); padding: 96px var(--pad); }
+.fqs { margin-top: 40px; max-width: 860px; border-top: 1px solid var(--line); }
+.fq { border-bottom: 1px solid var(--line); }
+.fq summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; font-size: 19px; font-weight: 600; cursor: pointer; }
+.fq summary::-webkit-details-marker { display: none; }
+.fq summary i { flex: none; position: relative; width: 32px; height: 32px; border-radius: 50%; background: #fff; }
+.fq summary i::before, .fq summary i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: var(--ink); transform: translate(-50%, -50%); transition: transform 200ms; }
+.fq summary i::after { transform: translate(-50%, -50%) rotate(90deg); }
+.fq[open] summary i::after { transform: translate(-50%, -50%) rotate(0deg); }
+.fq p { padding: 0 48px 22px 0; font-size: 16px; color: var(--ink-2); max-width: 64ch; }
+@media (max-width: 760px) { .faq { padding: 72px 16px; } .fq summary { font-size: 17px; } .fq p { padding-right: 0; } }
+
+/* текст под заголовком ближе к «решение под ключ» */
+.hx .hx-foot { margin-top: 20px; }
+@media (min-width: 761px) { .hx .hx-foot { margin-top: 24px; } }
+
+/* оффер розовой карточкой справа от «Знакомо?» */
+.pn { display: grid; gap: 28px; }
+@media (min-width: 900px) { .pn { grid-template-columns: 1fr minmax(340px, 420px); align-items: center; column-gap: 56px; } }
+.pn-o { background: var(--acc); color: var(--ink); border-radius: 28px; padding: 28px; display: grid; gap: 4px; }
+.pn-o-k { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.pn-o-big { font-size: clamp(72px, 7vw, 104px); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; margin-top: 6px; }
+.pn-o-h { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+.pn-o-d { font-size: 15px; line-height: 1.4; margin-top: 8px; color: rgba(17,17,17,0.75); }
+.pn-o-p { font-size: 30px; font-weight: 600; letter-spacing: -0.03em; margin-top: 14px; font-variant-numeric: tabular-nums; }
+.pn-o-p s { font-size: 0.55em; font-weight: 400; color: rgba(17,17,17,0.6); margin-right: 8px; }
+.pn-o .pill.solid { background: var(--ink); color: #fff; justify-content: center; margin-top: 14px; }
+@media (max-width: 760px) { .pn-o { padding: 24px; border-radius: 24px; } }
+
+/* оффер: металлический розовый с бликом */
+.pn-o { background: linear-gradient(115deg, #E0408F 0%, #F27DB6 30%, #FFD3E8 48%, #FFF0F7 50%, #FFD3E8 52%, #F27DB6 70%, #E0408F 100%); background-size: 260% 100%; background-position: 100% 0; }
+@media (prefers-reduced-motion: no-preference) { .pn-o { animation: pn-shine 5s ease-in-out infinite; } }
+@keyframes pn-shine { 0%, 30% { background-position: 100% 0; } 70%, 100% { background-position: 0% 0; } }
+.pn-o-d { color: rgba(17,17,17,0.8); }
+
+/* история: розовый (тон ниши) на всю ширину, текст слева чёрный */
+.story-b { --cp: var(--t-beauty); background: var(--cp); color: var(--ink); }
+:root[data-for="sezon"] .story-b { --cp: var(--t-sezon); }
+:root[data-for="shpor"] .story-b { --cp: var(--t-shpor); }
+:root[data-for="plavno"] .story-b { --cp: var(--t-plavno); }
+:root[data-for="karkas"] .story-b { --cp: var(--t-karkas); }
+:root[data-for="kapsula"] .story-b { --cp: var(--t-kapsula); }
+:root[data-for="blog"] .story-b { --cp: var(--t-blog); }
+.story-b .bp { border-radius: 0; }
+.story-b .bw small { color: rgba(17,17,17,0.6); }
+.story-b .bw small em { color: var(--ink); }
+.story-b .bw p { color: rgba(17,17,17,0.72); }
+
+/* история стопкой на всю ширину: следующая карточка наезжает на предыдущую */
+.story-b { height: auto !important; background: var(--dark); }
+.story-b .stage-b { position: static !important; height: auto !important; overflow: visible !important; display: block !important; padding: 0 !important; }
+.story-b .beat { position: sticky; top: 0; height: 100svh; min-height: 560px; display: grid !important; grid-template-areas: "w" "p"; grid-template-rows: auto 1fr; gap: 18px;
+  padding: calc(var(--bar-h) + 16px) var(--pad) calc(20px + var(--rail-h, 0px)); background: var(--bc); border-radius: 28px 28px 0 0; overflow: hidden; }
+.story-b .beat:nth-child(odd) { --bc: var(--cp); }
+.story-b .beat:nth-child(even) { --bc: color-mix(in srgb, var(--cp) 40%, #fff); }
+.story-b .bw, .story-b .bp, .story-b .bp .m { animation: none !important; opacity: 1; }
+.story-b .beat .bw { grid-area: w !important; }
+.story-b .beat .bp { grid-area: p !important; align-self: stretch !important; height: auto !important; min-height: 280px; max-height: none !important; background: transparent; border-radius: 0; transform: none !important; }
+.story-b .bp .m { font-size: min(calc((100vw - 2 * var(--pad)) / 44), calc((100svh - var(--bar-h) - 260px - var(--rail-h, 0px)) / 66)); }
+.story-b .bp-web { --sb: 0.6; }
+@media (min-width: 1100px) {
+  .story-b .beat { grid-template-areas: "w p" !important; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; align-items: center; column-gap: 40px; }
+  .story-b .bp .m { font-size: min(calc((50vw - 2 * var(--pad)) / 72), calc((100svh - var(--bar-h) - 80px - var(--rail-h, 0px)) / 66)); }
+  .story-b .bp-web { --sb: 0.95; }
+}
+
+/* как строится работа: чёрный фон */
+.proc { background: var(--dark) !important; color: var(--on-dark); }
+.proc .proc-head small, .proc .proc-head p { color: var(--on-dark-2); }
+.proc .ps-track::before { background: rgba(255,255,255,0.16) !important; }
+.proc .ps-dot span { color: var(--on-dark-2); }
+.proc .ps-dot[aria-pressed="true"] span { color: var(--on-dark); }
+.proc .ps-dot b { background: #1F1F1F !important; color: var(--on-dark) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16) !important; }
+.proc .ps-dot[aria-pressed="true"] b, .proc .ps-card .ps-num { background: var(--acc) !important; color: #fff !important; box-shadow: none !important; }
+.proc .ps-dot[aria-pressed="true"]::after { background: var(--acc); }
+.proc .ps-card { background: #1A1A1A !important; color: var(--on-dark); border-color: rgba(255,255,255,0.12) !important; }
+.proc .ps-card p { color: var(--on-dark-2); }
+/* макет сайта в истории крупнее */
+.story-b .bp-web { --sb: 0.78; }
+@media (min-width: 1100px) {
+  .story-b .beat { grid-template-columns: 0.8fr 1.2fr; }
+  .story-b .bp .m { font-size: min(calc((60vw - 2 * var(--pad)) / 72), calc((100svh - var(--bar-h) - 80px - var(--rail-h, 0px)) / 66)); }
+  .story-b .bp-web { --sb: 1.05; }
+}
+
+/* макеты в истории одного размера и с отступом от текста */
+.story-b .bp-web, .story-b .bp-crm, .story-b .bp-dash { --sb: 0.6; }
+.story-b .bp-bot, .story-b .bp-pay, .story-b .bp-app, .story-b .bp-club { --sb: 0.9; }
+@media (min-width: 1100px) {
+  .story-b .beat { column-gap: 72px; }
+  .story-b .bp { overflow: hidden; }
+  .story-b .bp-web, .story-b .bp-crm, .story-b .bp-dash { --sb: 0.92; }
+  .story-b .bp-bot, .story-b .bp-pay, .story-b .bp-app, .story-b .bp-club { --sb: 1; }
+}
+.story-b :is(.m-web > .win, .m-crm > .crm, .m-dash > .dash) { animation: none !important; transform: none !important; }
+.story-b .bp-web, .story-b .bp-crm, .story-b .bp-dash { --sb: 1.05; }
+@media (min-width: 1100px) { .story-b .bp-web, .story-b .bp-crm, .story-b .bp-dash { --sb: 1.2; } }
+/* одна ширина у широких макетов: подогнано по их реальной ширине */
+.story-b .bp-web { --sb: 0.76; } .story-b .bp-crm { --sb: 0.67; } .story-b .bp-dash { --sb: 0.84; }
+@media (min-width: 1100px) { .story-b .bp-web { --sb: 1.02; } .story-b .bp-crm { --sb: 0.9; } .story-b .bp-dash { --sb: 1.14; } }
+
+
+
+/* анимации внутри макетов истории убраны: макеты сразу в готовом виде */
+.story-b .bp * { animation: none !important; }
+/* телефон: широкие макеты и окно оплаты крупнее, по центру, края уходят за карточку поровну */
+@media (max-width: 1099px) {
+  .story-b .beat { padding-left: 12px; padding-right: 12px; }
+  .story-b :is(.bp-web, .bp-crm, .bp-dash) { overflow: visible !important; }
+  .story-b .bp-web { --sb: 1.02; } .story-b .bp-crm { --sb: 0.9; } .story-b .bp-dash { --sb: 1.12; }
+  .story-b .bp-pay { --sb: 1.45; }
+}
+
+/* разбор: замочки поверх размытых цифр */
+.rzs-v { position: relative; display: inline-flex; align-items: center; flex: none; }
+.rzs-list li.rzs-wide .rzs-v { flex-basis: 100%; }
+.rzs-lock { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; opacity: 0; transition: opacity 400ms; }
+.rzs-lock svg { width: 15px; height: 15px; }
+.rzs-res.is-ready .rzs-lock { opacity: 1; transition-delay: 300ms; }
+@media (max-width: 760px) { .rzs-lock { left: 18px; } }
+.pc-note { margin-top: 24px; font-size: 15px; color: var(--ink-2); }

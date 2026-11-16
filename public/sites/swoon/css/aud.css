@@ -1,0 +1,130 @@
+:root {
+  --n-beauty: var(--c-beauty);
+  --n-sezon: var(--c-sezon);
+  --n-shpor: var(--c-shpor);
+  --n-plavno: var(--c-plavno);
+  --n-karkas: var(--c-karkas);
+  --n-kapsula: var(--c-kapsula);
+  --n-blog: var(--c-blog);
+  --n-vam: var(--c-vam);
+}
+:root:not([data-for]) [data-v]:not([data-v="beauty"]),
+:root[data-for="beauty"] [data-v]:not([data-v="beauty"]),
+:root[data-for="sezon"] [data-v]:not([data-v="sezon"]),
+:root[data-for="shpor"] [data-v]:not([data-v="shpor"]),
+:root[data-for="plavno"] [data-v]:not([data-v="plavno"]),
+:root[data-for="karkas"] [data-v]:not([data-v="karkas"]),
+:root[data-for="kapsula"] [data-v]:not([data-v="kapsula"]),
+:root[data-for="blog"] [data-v]:not([data-v="blog"]),
+:root[data-for="vam"] [data-v]:not([data-v="vam"]) { display: none !important; }
+:root[data-for="vam"] .only-ax { display: none !important; }
+:root:not([data-for]) .not-ax,
+:root[data-for="beauty"] .not-ax,
+:root[data-for="sezon"] .not-ax,
+:root[data-for="shpor"] .not-ax,
+:root[data-for="plavno"] .not-ax,
+:root[data-for="karkas"] .not-ax,
+:root[data-for="kapsula"] .not-ax,
+:root[data-for="blog"] .not-ax { display: none !important; }
+:root[data-for="sezon"] {
+  --acc: #6E9A47;
+  --acc-ink: #3D6420;
+  --acc-strong: #467327;
+  --on-acc: #FFFFFF;
+  --acc-soft: #DCE8CC;
+  --acc-tint: #EEF4E6;
+  --acc-fill: #6E9A47;
+  --on-acc-fill: #FFFFFF;
+  --p-web: #DCE4CF;
+  --p-bot: #7F9C5E;
+  --p-pay: #F3D35B;
+  --p-app: #B9D58C;
+  --p-club: #E5573F;
+  --p-crm: #29452B;
+  --p-dash: #F29A4B;
+}
+:root[data-for="shpor"] {
+  --acc: #2340E8;
+  --acc-ink: #2340E8;
+  --acc-strong: #2340E8;
+  --on-acc: #FFFFFF;
+  --acc-soft: #D7F25C;
+  --acc-tint: #EAEEFF;
+  --acc-fill: #2340E8;
+  --on-acc-fill: #FFFFFF;
+  --p-web: #DDE4FF;
+  --p-bot: #2340E8;
+  --p-pay: #D7F25C;
+  --p-app: #A6B4FF;
+  --p-club: #1B2A9E;
+  --p-crm: #D7F25C;
+  --p-dash: #E3E8FF;
+}
+:root[data-for="plavno"] {
+  --acc: #6E58A8;
+  --acc-ink: #5E4B8B;
+  --acc-strong: #5E4B8B;
+  --on-acc: #FFFFFF;
+  --acc-soft: #DCCCF5;
+  --acc-tint: #F1EAFB;
+  --acc-fill: #5E4B8B;
+  --on-acc-fill: #FFFFFF;
+  --p-web: #F6D7E7;
+  --p-bot: #F2B8D6;
+  --p-pay: #DCCCF5;
+  --p-app: #C9F0DC;
+  --p-club: #F7A8C8;
+  --p-crm: #5E4B8B;
+  --p-dash: #CDE7F5;
+}
+:root[data-for="karkas"] {
+  --acc: #86AD12;
+  --acc-ink: #4A6400;
+  --acc-strong: #D7F25C;
+  --on-acc: #121314;
+  --acc-soft: #E7F5A8;
+  --acc-tint: #F2F8D8;
+  --acc-fill: #D7F25C;
+  --on-acc-fill: #121314;
+  --p-web: #D7F25C;
+  --p-bot: #34372C;
+  --p-pay: #EDEDE8;
+  --p-app: #D7F25C;
+  --p-club: #34372C;
+  --p-crm: #EDEDE8;
+  --p-dash: #D7F25C;
+}
+:root[data-for="kapsula"] {
+  --acc: #D92E23;
+  --acc-ink: #B3241B;
+  --acc-strong: #C8281E;
+  --on-acc: #FFFFFF;
+  --acc-soft: #F7D5D2;
+  --acc-tint: #FBEAE8;
+  --acc-fill: #D92E23;
+  --on-acc-fill: #FFFFFF;
+  --p-web: #EDEDEA;
+  --p-bot: #D92E23;
+  --p-pay: #F7D5D2;
+  --p-app: #3A3A3A;
+  --p-club: #E3352A;
+  --p-crm: #EDEDEA;
+  --p-dash: #F2B8B2;
+}
+:root[data-for="blog"] {
+  --acc: #FFB547;
+  --acc-ink: #1C2566;
+  --acc-strong: #FFB547;
+  --on-acc: #1C2566;
+  --acc-soft: #FFE2A8;
+  --acc-tint: #FFF3DC;
+  --acc-fill: #1C2566;
+  --on-acc-fill: #FFFFFF;
+  --p-web: #E8EBFF;
+  --p-bot: #1C2566;
+  --p-pay: #FFB547;
+  --p-app: #8E9BFF;
+  --p-club: #1C2566;
+  --p-crm: #FFB547;
+  --p-dash: #DDE1FF;
+}

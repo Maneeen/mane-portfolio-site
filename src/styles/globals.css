@@ -1088,3 +1088,354 @@ img {
   }
 
 }
+
+/* ── Roles: tabs, previews, placeholder pages ────────── */
+
+.role-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-tabs__item {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.role-tabs__item[aria-current='page'] {
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+.hero__side {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.hero__side .role-tabs {
+  justify-content: flex-end;
+}
+
+.hero__side .hero__role {
+  position: static;
+}
+
+.role-tabs--strip {
+  padding: 16px var(--section-x) 0;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: none;
+}
+
+.role-tabs--strip::-webkit-scrollbar {
+  display: none;
+}
+
+.role-previews {
+  margin-bottom: clamp(72px, 10vw, 140px);
+}
+
+.role-previews__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.role-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--hero-bg);
+  container-type: inline-size;
+  transition: border-color 0.25s ease;
+}
+
+.role-card:hover {
+  border-color: var(--text);
+}
+
+.role-card__word {
+  position: absolute;
+  top: 6%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 27cqw;
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--hero-word);
+  white-space: nowrap;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-card:hover .role-card__word {
+  transform: scale(1.04);
+}
+
+.role-card__photo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 88%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+.role-card__foot {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+
+.role-card__title {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 600;
+}
+
+
+.role-card__arrow {
+  margin-left: auto;
+  font-size: 22px;
+  transition: transform 0.25s ease;
+}
+
+.role-card:hover .role-card__arrow {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 768px) {
+  .role-previews__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.role-works__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  min-height: clamp(280px, 40vw, 520px);
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: 20px;
+  border: 1px dashed var(--pill-line);
+}
+
+.role-works__title {
+  font-size: clamp(28px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.role-works__note {
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--muted);
+}
+
+/* Marketing cases: logo panel + short text */
+.mcases {
+  display: flex;
+  flex-direction: column;
+}
+
+.mcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  padding: clamp(24px, 3vw, 40px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.mcase:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.mcase__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mcase:hover .mcase__media {
+  transform: scale(0.985);
+}
+
+.mcase__logo {
+  display: block;
+  width: 56%;
+  height: auto;
+}
+
+.mcase--devteam-space .mcase__logo:first-child {
+  width: 11%;
+}
+
+.mcase--devteam-space .mcase__logo:last-child {
+  width: 56%;
+}
+
+.mcase__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mcase__title {
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+
+.mcase__desc {
+  max-width: 520px;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.mcase__metrics {
+  display: flex;
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: 24px;
+}
+
+.mcase__metrics dt {
+  font-size: clamp(32px, 3.6vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.mcase__metrics dd {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.mcase__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .mcase {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mcase__media {
+    border-radius: 12px;
+  }
+}
+
+/* ── Live site frame in a case study ─────────────────── */
+
+.live {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.live__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 52px;
+  padding: 0 10px 0 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.live__host {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.live__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--pill-line);
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.live__open:hover {
+  border-color: var(--text);
+}
+
+.live__frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 140px);
+  height: calc(100svh - 140px);
+  min-height: 520px;
+  border: 0;
+  background: #fff;
+}
+
+.live__hint {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .live {
+    border-radius: 12px;
+  }
+
+  .live__frame {
+    height: calc(100svh - 120px);
+  }
+}
+
+/* Footer on pages without the side panel (case studies, role pages) */
+@media (min-width: 1025px) {
+  .contacts:not(.with-panel) {
+    padding-left: var(--section-x);
+  }
+}

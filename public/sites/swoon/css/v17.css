@@ -1,0 +1,10 @@
+.hx .hx-word.is-spin .hx-fit { overflow: hidden; }
+.hx .hx-word.is-spin .hx-fit > span { display: none !important; }
+.hx .hx-word.is-spin .hx-fit > span[data-spin] { display: inline-block !important; animation: drum-in var(--dd, 90ms) var(--e-out) both; }
+@keyframes drum-in { from { transform: translateY(55%); opacity: 0.2; } to { transform: none; opacity: 1; } }
+:root.drum .hx .hx-fit { opacity: 0; animation: hx-show 0s 3s forwards; }
+:root.drum .hx .hx-word.is-spin .hx-fit, :root.drum .hx .hx-word.is-done .hx-fit { opacity: 1; }
+@keyframes hx-show { to { opacity: 1; } }
+.hx .hx-word.is-vam .hx-fit > span { display: none !important; }
+.hx .hx-word.is-vam .hx-fit > span[data-v="vam"] { display: inline !important; }
+:root:not([data-for="vam"]) .hx .hx-word:not(.is-spin) .hx-fit > span[data-v="vam"] { display: none !important; }

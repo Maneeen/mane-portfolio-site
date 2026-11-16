@@ -13,11 +13,11 @@ export const strings = {
     about: {
       label: 'About me',
       statement:
-        "My key skill is understanding users. I uncover and dig deep into their goals, tasks and problems at every stage of the product experience, whether I'm improving an existing product or building a new one.",
+        "My key skill is understanding both users and the business. I dig into what people need and what the product needs to earn, and look for the solution where both win, whether I'm improving an existing product or building a new one.",
       experienceLabel: 'Experience',
       experience: [
         "Product designer with 4+ years of experience across brand identity, UX/UI and frontend development. I've worked on B2C, B2B and SaaS products, from early research and strategy to final implementation.",
-        'For 2 years I worked at an American company with clients from the US and Europe, covering the full design cycle in an international team.',
+        '2 years at an IT company working on products for the US and European markets, covering the full design cycle in an international team.',
       ],
       skillsLabel: 'Skills',
       skills: [
@@ -119,6 +119,11 @@ export const strings = {
       services: 'Services',
       comingSoon: 'Full case study — coming soon',
       next: 'Next project',
+      openSite: 'Open site',
+      liveHint: 'This is the live site: scroll and click inside the frame.',
+    },
+    roles: {
+      label: 'Other sides of my work',
     },
     contacts: {
       label: 'Contacts',
@@ -142,11 +147,11 @@ export const strings = {
     about: {
       label: 'Обо мне',
       statement:
-        'Мой ключевой навык — понимать пользователей. Я выявляю и глубоко разбираю их цели, задачи и проблемы на каждом этапе работы с продуктом: и когда улучшаю существующий, и когда создаю новый.',
+        'Мой ключевой навык: понимать пользователей и бизнес одновременно. Я разбираю, что нужно человеку и что нужно продукту, чтобы зарабатывать, и ищу решение, в котором обе стороны выигрывают. Так я работаю и когда улучшаю существующий продукт, и когда создаю новый.',
       experienceLabel: 'Опыт',
       experience: [
         'Продуктовый дизайнер с опытом 4+ года: айдентика, UX/UI и фронтенд-разработка. Работала с B2C, B2B и SaaS-продуктами, от первых исследований и стратегии до финальной реализации.',
-        '2 года работала в американской компании с клиентами из США и Европы и вела полный цикл дизайна в международной команде.',
+        '2 года в IT-компании с клиентами из США и Европы. Работала в международной команде и отвечала за весь дизайн, от первых интервью до сдачи макетов.',
       ],
       skillsLabel: 'Навыки',
       skills: [
@@ -248,6 +253,11 @@ export const strings = {
       services: 'Услуги',
       comingSoon: 'Полный кейс скоро появится',
       next: 'Следующий проект',
+      openSite: 'Открыть сайт',
+      liveHint: 'Это живой сайт: его можно листать и нажимать прямо в окне.',
+    },
+    roles: {
+      label: 'Другие стороны моей работы',
     },
     contacts: {
       label: 'Контакты',

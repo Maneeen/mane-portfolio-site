@@ -19,8 +19,9 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home key="product" />} />
         <Route path="/work/:slug" element={<CaseStudy />} />
+        <Route path="/marketing" element={<Home key="marketing" role="marketing" />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

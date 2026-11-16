@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>Алгоритмический трейдинг: мониторинг результатов | Tark</title>
+<meta name="description" content="Мониторинг алгоритмов IQSF и Tark Balance: доходность по каждому дню в процентах, просадки, CAGR, коэффициенты Шарпа и Кальмара, выгрузка CSV.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://tark-am.com/monitoring/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tark-am.com/monitoring/">
+<meta property="og:site_name" content="Tark Asset Management">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Алгоритмический трейдинг: мониторинг результатов | Tark">
+<meta property="og:description" content="Мониторинг алгоритмов IQSF и Tark Balance: доходность по каждому дню в процентах, просадки, CAGR, коэффициенты Шарпа и Кальмара, выгрузка CSV.">
+<meta property="og:image" content="https://tark-am.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Алгоритмический трейдинг: мониторинг результатов | Tark">
+<meta name="twitter:description" content="Мониторинг алгоритмов IQSF и Tark Balance: доходность по каждому дню в процентах, просадки, CAGR, коэффициенты Шарпа и Кальмара, выгрузка CSV.">
+<meta name="twitter:image" content="https://tark-am.com/og.jpg">
+<link rel="icon" href="/sites/tark-am/logo.png" type="image/png">
+
+<link rel="preload" href="/sites/tark-am/fonts/Onest-var-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/sites/tark-am/fonts/Onest-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="/sites/tark-am/style.css?v=r1">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://tark-am.com/#organization","name":"Tark Asset Management","url":"https://tark-am.com/","logo":{"@type":"ImageObject","url":"https://tark-am.com/logo.png","width":512,"height":512},"description":"Алгоритмическое управление капиталом на криптоактивах. Капитал остаётся на собственном счёте клиента на бирже, подключение по API.","parentOrganization":{"@type":"Organization","name":"Tark Holding","url":"https://tarkholding.com/"}},{"@type":"WebSite","@id":"https://tark-am.com/#website","url":"https://tark-am.com/","name":"Tark Asset Management","inLanguage":"ru","publisher":{"@id":"https://tark-am.com/#organization"}},{"@type":"WebPage","@id":"https://tark-am.com/monitoring/#webpage","url":"https://tark-am.com/monitoring/","name":"Алгоритмический трейдинг: мониторинг результатов | Tark","inLanguage":"ru","isPartOf":{"@id":"https://tark-am.com/#website"},"about":{"@id":"https://tark-am.com/#organization"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://tark-am.com/"},{"@type":"ListItem","position":2,"name":"Мониторинг","item":"https://tark-am.com/monitoring/"}]}}]}</script>
+</head>
+<body data-sid="iqsf">
+<a class="skip" href="#main">К содержанию</a>
+<header class="hdr">
+<a class="brand" href="/sites/tark-am/index.html" aria-label="Tark Asset Management, на главную"><svg viewBox="-85.0 -2.0 87.0 60.0" aria-hidden="true"><polygon points="0.00,0.00 -55.60,42.94 -83.02,56.00" fill="currentColor"/><polygon points="0.00,0.00 -30.37,41.31 -46.99,56.00" fill="currentColor"/><polygon points="0.00,0.00 -14.93,40.32 -24.93,56.00" fill="currentColor"/></svg><span class="brand-word">TARK<small>Asset Management</small></span></a>
+<nav class="nav" id="nav" aria-label="Разделы сайта">
+<a href="/sites/tark-am/monitoring/index.html" aria-current="page">Мониторинг</a>
+<a href="/sites/tark-am/conditions/index.html">Условия</a>
+<a href="/sites/tark-am/conditions/index.html#faq">Вопросы</a>
+<a class="to-holding" href="https://tarkholding.vercel.app/">Tark Holding</a>
+</nav>
+<div class="hdr-act">
+<button class="btn" type="button" data-lead>Оставить заявку</button>
+<button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню"><i></i></button>
+</div>
+</header>
+<main id="main">
+<section class="sec s-head" id="top" aria-labelledby="m-h">
+<nav class="crumbs" aria-label="Путь"><ol><li><a href="/sites/tark-am/index.html">Главная</a></li><li aria-current="page">Мониторинг</li></ol></nav>
+<h1 id="m-h" class="page-h">Алгоритмический трейдинг: мониторинг результатов</h1>
+<p class="s-line">Доходность алгоритмов Tark по каждому дню, в процентах: итог, просадки, среднегодовая доходность и коэффициенты Шарпа, Сортино и Кальмара за 1, 3, 6 и 12 месяцев и весь срок. Ниже для каждого алгоритма: как он работает, откуда данные и какие у него риски.</p>
+<div class="seg seg-tabs" id="seg-strat" role="group" aria-label="Алгоритм">
+<button class="seg-b on" type="button" data-v="iqsf" aria-pressed="true">IQSF</button>
+<button class="seg-b" type="button" data-v="balance" aria-pressed="false">Tark Balance</button>
+</div>
+<div class="s-pane" data-for="iqsf">
+<div class="s-title"><h2 class="s-name">IQSF</h2><span class="badge">Мониторинг</span></div>
+<p class="s-line">Моментум: входит в сильные движения рынка в обе стороны, убыток каждой сделки ограничен стопом.</p>
+<div class="s-figs">
+<div><b class="up">+182,9 %</b><span>с 12 января 2025</span></div>
+<div><b class="up">+83,0 %</b><span>среднегодовая доходность, CAGR</span></div>
+<div><b class="down">-32,5 %</b><span>наибольшая просадка</span></div>
+<div><b>1,77</b><span>коэффициент Шарпа</span></div>
+</div>
+<p class="s-src"><b>Данные.</b> Дневная доходность по данным витрины стратегий IQSF (strategies.fund-iq.com). Период с 12 января 2025 по 1 октября 2026, срез данных от 2 октября 2026. Ряд это дневная доходность алгоритма, а не баланс счёта, поэтому пополнения и выводы в него не попадают.</p>
+<div class="hero-act"><button class="btn btn-lg" type="button" data-lead>Обсудить подключение<svg class="arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><a class="s-jump" href="#results">К графикам</a></div>
+</div>
+
+<div class="s-pane" data-for="balance" hidden>
+<div class="s-title"><h2 class="s-name">Tark Balance</h2><span class="badge badge-calc">Расчёт</span></div>
+<p class="s-line">Сетка: продаёт перегретый рост HYPE и ступенями покупает просадки BTC и ETH.</p>
+<div class="s-figs">
+<div><b class="up">+229,3 %</b><span>с 19 декабря 2024</span></div>
+<div><b class="up">+95,3 %</b><span>среднегодовая доходность, CAGR</span></div>
+<div><b class="down">-35,1 %</b><span>наибольшая просадка</span></div>
+<div><b>1,59</b><span>коэффициент Шарпа</span></div>
+</div>
+<p class="s-src"><b>Данные.</b> Доходность по правилам алгоритма с 19.12.2024, рассчитана на дневных данных и фандинге биржи Bybit, два независимых субсчёта 50 на 50. Реального счёта с этой историей нет. Период с 19 декабря 2024 по 29 сентября 2026, срез данных от 2 октября 2026. Ряд это дневная доходность алгоритма, а не баланс счёта, поэтому пополнения и выводы в него не попадают.</p>
+<div class="hero-act"><button class="btn btn-lg" type="button" data-lead>Обсудить подключение<svg class="arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><a class="s-jump" href="#results">К графикам</a></div>
+</div>
+
+</section>
+
+<section class="sec" id="results">
+<div class="sec-head">
+<h2>Графики и метрики</h2>
+<p class="lead">Выберите период кнопками или датами: показатели и графики ниже пересчитываются под него, кроме таблицы метрик по периодам, она всегда от последнего дня данных. Наведите на график или коснитесь его, чтобы увидеть день, значение и просадку в этой точке.</p>
+</div>
+<div class="toolbar">
+<div class="seg" id="seg-period" role="group" aria-label="Период"></div>
+<div class="range"><label>с <input type="date" id="from" aria-label="Начало периода"></label><label>по <input type="date" id="to" aria-label="Конец периода"></label></div>
+<button class="csv" id="csv" type="button">Скачать CSV</button>
+</div>
+<p class="range-note" id="range-note" aria-live="polite"></p>
+<div class="kpis" id="kpis"></div>
+<p class="example" id="example"></p>
+<div class="panel">
+<h3>Капитал</h3>
+<p class="small">Рост капитала за выбранный период в процентах от его начала. <span id="ev-hint"></span></p>
+<div class="chart" id="eq" role="img" aria-label="Кривая капитала за выбранный период"></div>
+</div>
+<div class="panel" id="events-note">
+<h3>Ключевые события за период</h3>
+<p class="small">Результат алгоритма и биткоина за неделю события.</p>
+<ol class="events" id="events"></ol>
+</div>
+<div class="panel">
+<h3>Просадка от пика</h3>
+<p class="small">На сколько капитал был ниже своего прежнего максимума в каждый день.</p>
+<ul class="risk-facts" id="risk-facts"></ul>
+<div class="chart" id="dd" role="img" aria-label="Просадка от пика за выбранный период"></div>
+</div>
+<div class="panel">
+<h3>Доходность по дням</h3>
+<p class="small">Столбец вверх это день в плюс, вниз день в минус, высота показывает размер изменения.</p>
+<div class="chart" id="bars" role="img" aria-label="Дневная доходность столбцами"></div>
+<p class="day-note" id="day-note"></p>
+</div>
+<div class="duo">
+<div class="panel">
+<h3>Распределение дневной доходности</h3>
+<p class="small">Сколько дней пришлось на каждый размер изменения. Крайние столбцы собирают по одному проценту самых сильных дней в каждую сторону.</p>
+<div class="chart" id="hist" role="img" aria-label="Распределение дневной доходности"></div>
+</div>
+<div class="panel">
+<h3>Скользящие <span class="term" tabindex="0" data-hint="Скользящее окно: показатель считается за последние 90 дней на каждую дату. Видно, ровно ли стратегия работает во времени или держится на одном удачном куске.">Шарп и волатильность</span></h3>
+<div class="seg seg-sm" id="seg-roll" role="group" aria-label="Показатель"></div>
+<div class="chart" id="roll" role="img" aria-label="Скользящий показатель"></div>
+<p class="small" id="roll-note"></p>
+</div>
+</div>
+<div class="panel">
+<h3>По месяцам</h3>
+<p class="small">Каждая клетка это месяц выбранного периода в процентах: синие в плюс, красные в минус. Справа итог года.</p>
+<p class="scroll-note">Таблица шире экрана, листайте её вбок.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Доходность по месяцам, таблица прокручивается вбок"><table class="heat" id="heat"></table></div>
+</div>
+<div class="panel">
+<h3>Метрики по периодам</h3>
+<p class="small" id="mtable-note"></p>
+<p class="scroll-note">Таблица шире экрана, листайте её вбок.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Метрики по периодам, таблица прокручивается вбок"><table id="mtable"></table></div>
+</div>
+</section>
+
+<section class="sec band" id="how">
+<div class="s-pane" data-for="iqsf">
+<div class="sec-head">
+<h2>Как работает IQSF</h2>
+</div>
+<div class="how">
+<p class="how-lead">Моментум-алгоритм: зарабатывает на продолжении сильных движений рынка. Чаще получает небольшие минусы, а прибыль приносят крупные движения.</p>
+<div class="how-cols">
+<div class="how-col">
+<h3 class="how-k">Логика</h3>
+<p>IQSF ищет всплески волатильности и входит, когда движение подтверждено объёмом. Позицию можно открыть и на рост, и на падение, на бессрочных фьючерсах крупных бирж.</p>
+<p>Короткий импульс алгоритм забирает за несколько часов, а в сильном тренде держит позицию дольше: обычно сделка длится от нескольких часов до пары суток, самые долгие больше недели.</p>
+<p>Этим IQSF отличается от Tark Balance: убыток каждой сделки ограничен стопом, а прибыльным позициям алгоритм даёт расти. Поэтому минусовых дней у неё даже чуть больше, чем плюсовых, но они мельче.</p>
+</div>
+<div class="how-col">
+<h3 class="how-k">Контроль рисков</h3>
+<ul class="how-list">
+<li>У каждой позиции стоп задаётся при входе по волатильности инструмента и потом не сдвигается.</li>
+<li>Убыточную позицию алгоритм не усредняет. Риск на сделку одинаковый, экспозиция и число позиций в одну сторону ограничены.</li>
+<li>При просадке счёта сначала снижается риск на сделку, при более глубокой новые входы останавливаются, а аварийный порог останавливает торговлю, и перезапуск требует отдельного решения.</li>
+<li>Сбой данных, заморозка выводов на бирже или отвязка стейблкоина тоже останавливают новые входы.</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="s-pane" data-for="balance" hidden>
+<div class="sec-head">
+<h2>Как работает Tark Balance</h2>
+</div>
+<div class="how">
+<p class="how-lead">Алгоритм сеточной торговли, который зарабатывает на возврате цены к среднему: продаёт перегретый рост и выходит на небольшом откате. Зарабатывает часто и понемногу, изредка получает крупный стоп.</p>
+<div class="how-cols">
+<div class="how-col">
+<h3 class="how-k">Логика</h3>
+<p>Капитал разделён на две независимые части. Первая продаёт HYPE, когда он перегрет на коротком отрезке, и закрывает позицию на откате всего на 0,35&nbsp;% от средней цены. Если рост продолжается, продажа добирается ступенями по сетке ордеров: каждая следующая ступень крупнее, и средняя цена подтягивается к рынку. Обычно позиция живёт около часа.</p>
+<p>Почему продажа HYPE: это растущий актив, но растёт он рывками. С декабря 2024 года HYPE 25 раз поднимался на 15&nbsp;% и больше, и в 20 случаях из 25 после этого откатывал на 15&nbsp;% и больше. На таких возвратах алгоритм и зарабатывает.</p>
+<p>Вторая часть так же ступенями покупает BTC и ETH на просадках, когда на часовом графике держится восходящий тренд. Это главные монеты рынка, и их просадки чаще выкупаются: с декабря 2024 года BTC восемь раз падал на 10&nbsp;% и больше и в шести случаях вернулся к прежнему пику.</p>
+<p class="how-fact">В показанном периоде почти весь результат дала продажа HYPE: часть BTC и ETH держала заработанное раньше в резерве и торговала небольшим объёмом.</p>
+</div>
+<div class="how-col">
+<h3 class="how-k">Контроль рисков</h3>
+<ul class="how-list">
+<li>У каждой части свой стоп. Продажу HYPE закрывает аварийный стоп, если убыток позиции доходит до 30&nbsp;% торговых денег этой части. Покупку BTC и ETH закрывает стоп на 7&nbsp;% ниже средней цены. Если доборов набирается много, позицию раньше стопа закрывает биржа по нехватке залога.</li>
+<li>Сетка ограничена: не больше шести доборов у HYPE и четырёх у BTC и ETH, в позиции не больше 90&nbsp;% торговых денег части.</li>
+<li>После резкого падения самого HYPE новые продажи приостанавливаются, а при всплеске волатильности BTC и ETH приостанавливаются доборы.</li>
+<li>Часть прибыли откладывается в резерв: он не участвует в торговле и не теряется на стопе.</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="sec" id="risk">
+<div class="s-pane" data-for="iqsf">
+<div class="sec-head">
+<h2>Риски IQSF</h2>
+<p class="lead">Наибольшая просадка IQSF за весь срок -32,5 %. Вот что ещё важно знать до подключения.</p>
+</div>
+<ul class="how-list risk-list">
+<li>Минусовых дней больше, чем плюсовых: доход приносят крупные движения рынка, а между ними бывают долгие периоды без роста.</li>
+<li>Витрина публикует дневную доходность, но не сделки, поэтому число сделок и ликвидаций здесь не показано.</li>
+<li>Капитал хранится на бирже, поэтому к рыночному риску добавляется риск самой площадки.</li>
+<li>Прошлая доходность не гарантирует будущую.</li>
+</ul>
+</div>
+
+<div class="s-pane" data-for="balance" hidden>
+<div class="sec-head">
+<h2>Риски Tark Balance</h2>
+<p class="lead">Наибольшая просадка Tark Balance за весь срок -35,1 %. Вот что ещё важно знать до подключения.</p>
+</div>
+<ul class="how-list risk-list">
+<li>Ряд посчитан по правилам алгоритма, а не снят с реального счёта. На реальном счёте исполнение отличается от расчёта, и результат может отличаться в обе стороны.</li>
+<li>В расчёте за показанный срок биржа трижды закрывала позицию по нехватке залога: BTC 25 февраля 2025, ETH 3 марта 2025, BTC 24 августа 2025. Эти дни есть в графиках и таблицах выше.</li>
+<li>Почти весь результат дала одна часть алгоритма, продажа HYPE. Результат во многом зависит от того, как дальше будет вести себя этот актив.</li>
+<li>Капитал хранится на бирже, поэтому к рыночному риску добавляется риск самой площадки.</li>
+<li>Прошлая доходность не гарантирует будущую.</li>
+</ul>
+</div>
+
+</section>
+
+<section class="sec fin fin-plain" id="contact" aria-labelledby="fin-h">
+
+<div class="fin-copy sec-head">
+<h2 id="fin-h">Обсудить управление капиталом</h2>
+<p class="lead">Оставьте контакт: расскажем, как подключить ваш счёт, и ответим на вопросы.</p>
+</div>
+
+<div class="fin-card">
+<form class="lead-form" id="lead-form" novalidate>
+<label>Имя<input name="name" autocomplete="name" maxlength="120" placeholder="как к вам обращаться" required aria-describedby="e-name"><span class="field-err" id="e-name" hidden>Напишите, как к вам обращаться.</span></label>
+<label>Как связаться<input name="contact" autocomplete="on" maxlength="200" placeholder="телефон, Telegram или почта" required aria-describedby="e-contact"><span class="field-err" id="e-contact" hidden>Оставьте телефон, Telegram или почту.</span></label>
+<label>Капитал<span class="sel"><select name="capital"><option value="">не указывать</option><option>до $100 000</option><option>от $100 000 до $1 млн</option><option>больше $1 млн</option></select></span></label>
+<label>Комментарий<textarea name="idea" rows="3" maxlength="2000" placeholder="что хотите обсудить"></textarea></label>
+<input class="hp" name="x_note" tabindex="-1" autocomplete="off" aria-hidden="true">
+<p class="lead-err" id="lead-err" role="alert" hidden>Не получилось отправить. Попробуйте ещё раз через минуту.</p>
+<button class="btn btn-lg" type="submit">Отправить заявку</button>
+<p class="small">Отправляя заявку, вы соглашаетесь, что мы свяжемся с вами по указанному контакту.</p>
+</form>
+<div class="lead-ok" id="lead-ok" hidden>
+<h3 tabindex="-1">Заявка у нас</h3>
+<p id="lead-ok-t" role="status"></p>
+</div>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="foot-in">
+<div class="foot-top">
+<a class="brand" href="/sites/tark-am/index.html" aria-label="Tark Asset Management, на главную"><svg viewBox="-85.0 -2.0 87.0 60.0" aria-hidden="true"><polygon points="0.00,0.00 -55.60,42.94 -83.02,56.00" fill="currentColor"/><polygon points="0.00,0.00 -30.37,41.31 -46.99,56.00" fill="currentColor"/><polygon points="0.00,0.00 -14.93,40.32 -24.93,56.00" fill="currentColor"/></svg><span class="brand-word">TARK<small>Asset Management</small></span></a>
+<p class="foot-line">Системный подход. Открытые результаты.</p>
+</div>
+<nav class="foot-nav" aria-label="Все страницы">
+<a href="/sites/tark-am/index.html">Главная</a>
+<a href="/sites/tark-am/monitoring/index.html" aria-current="page">Мониторинг</a>
+<a href="/sites/tark-am/conditions/index.html">Условия подключения</a>
+<a href="/sites/tark-am/conditions/index.html#faq">Вопросы и ответы</a>
+<a href="/sites/tark-am/story/index.html">История недели</a>
+<a href="https://tarkholding.vercel.app/">Tark Holding</a>
+</nav>
+<p class="foot-holding">Tark Asset Management входит в <a href="https://tarkholding.vercel.app/">Tark Holding</a>.</p>
+<p id="prov"></p>
+<p>Прошлая доходность не гарантирует будущую. Демонстрационная страница.</p>
+</div>
+</footer>
+<script defer src="/sites/tark-am/data.js?v=r1"></script>
+<script type="module" src="/sites/tark-am/js/strategy.js?v=r1"></script>
+</body>
+</html>

@@ -1,39 +1,52 @@
 import { usePrefs } from '../context/Prefs';
 import { useIsTablet } from '../hooks/useMediaQuery';
 import SidePanel from './SidePanel';
+import { RoleTabs } from './Roles';
 import photo from '../assets/mane.webp';
 
-export default function Hero() {
+export default function Hero({ role = 'product' }) {
   const { t } = usePrefs();
   const isTablet = useIsTablet();
 
   return (
-    <section id="hero" className="hero">
-      {/* on desktop the word is the fixed .fly-word rendered by SidePanel */}
-      {isTablet && <div className="hero__word" aria-hidden="true">MANE</div>}
-      <img className="hero__photo" src={photo} alt={t.name} width="696" height="1252" />
+    <>
+      <section id="hero" className="hero">
+        {/* on desktop the word is the fixed .fly-word rendered by SidePanel */}
+        {isTablet && (
+          <div className="hero__word" aria-hidden="true">
+            MANE
+          </div>
+        )}
+        <img className="hero__photo" src={photo} alt={t.name} width="696" height="1252" />
 
-      {isTablet ? (
-        <h1 className="hero__role hero__role--split">
-          <span className="sr-only">{t.name} — </span>
-          <span>
-            {t.roleSplit.left[0]}
-            <br />
-            {t.roleSplit.left[1]}
-          </span>
-          <span>{t.roleSplit.right}</span>
-        </h1>
-      ) : (
-        <h1 className="hero__role">
-          <span className="sr-only">{t.name} — </span>
-          {t.role[0]}
-          <br />
-          {t.role[1]}
-        </h1>
-      )}
+        {isTablet ? (
+          <h1 className="hero__role hero__role--split">
+            <span className="sr-only">{t.name} — </span>
+            <span>
+              {t.roleSplit.left[0]}
+              <br />
+              {t.roleSplit.left[1]}
+            </span>
+            <span>{t.roleSplit.right}</span>
+          </h1>
+        ) : (
+          <div className="hero__side">
+            <RoleTabs current={role} />
+            <h1 className="hero__role">
+              <span className="sr-only">{t.name} — </span>
+              {t.role[0]}
+              {t.role[1] && <br />}
+              {t.role[1]}
+            </h1>
+          </div>
+        )}
 
-      {/* on desktop the panel is fixed and rendered by Home */}
-      {isTablet && <SidePanel className="hero__panel" stacked />}
-    </section>
+        {/* on desktop the panel is fixed and rendered by Home */}
+        {isTablet && <SidePanel className="hero__panel" stacked />}
+      </section>
+
+      {/* mobile: the hero is full, so the role switch sits right under it */}
+      {isTablet && <RoleTabs current={role} className="role-tabs--strip" />}
+    </>
   );
 }

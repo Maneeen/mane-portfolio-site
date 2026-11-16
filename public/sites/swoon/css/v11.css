@@ -1,0 +1,32 @@
+/* v11: веер кейсов */
+.fan { --R: 1700px; --W: 250px; --H: 330px; position: relative; height: 380px; margin: 40px calc(-1 * var(--pad)) -40px; overflow: hidden; }
+.wheel { list-style: none; position: absolute; left: 50%; top: calc(40px + var(--R)); width: 0; height: 0; animation: fan-spin 300s linear infinite; }
+.fc { position: absolute; left: calc(var(--W) / -2); top: calc(-1 * var(--R)); width: var(--W); height: var(--H); transform-origin: 50% var(--R); transform: rotate(var(--a)); border-radius: 18px; background: var(--bg); color: var(--fg); overflow: hidden; padding: 18px 18px 0; }
+.fc b { display: block; font-family: var(--f-brand); font-weight: 800; font-size: 22px; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; max-width: 9ch; }
+.fc-ph { position: absolute; left: 50%; bottom: -26%; width: 58%; transform: translateX(-50%) rotate(-7deg); border-radius: 14% / 6.5%; background: #0B0B0C; padding: 4px; box-shadow: 0 18px 40px -16px rgba(0,0,0,0.5); }
+.fc-ph img { display: block; width: 100%; height: auto; border-radius: 12% / 5.6%; }
+.fc:nth-child(even) .fc-ph { transform: translateX(-50%) rotate(6deg); }
+@keyframes fan-spin { to { transform: rotate(-360deg); } }
+@media (max-width: 760px) {
+  .fan { --R: 950px; --W: 150px; --H: 205px; height: 250px; margin-top: 28px; }
+  .fc { padding: 12px 12px 0; border-radius: 14px; }
+  .fc b { font-size: 14px; }
+  .fc-ph { padding: 3px; }
+}
+@media (prefers-reduced-motion: reduce) { .wheel { animation: none; } }
+/* v12: лендинг + телефон */
+.fan { --W: 320px; --H: 330px; }
+.fc b { max-width: none; font-size: 20px; }
+.fc-web { position: absolute; left: 14px; top: 56px; width: 82%; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 14px 30px -14px rgba(0,0,0,0.45); transform: rotate(-3deg); }
+.fc-web i { display: block; height: 12px; background: #ECEBE8; }
+.fc-web img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.fc-ph { left: auto; right: 10px; bottom: -18%; width: 34%; transform: rotate(6deg); }
+.fc:nth-child(even) .fc-ph { transform: rotate(-5deg); }
+.fc:nth-child(even) .fc-web { transform: rotate(2deg); }
+@media (max-width: 760px) {
+  .fan { --W: 200px; --H: 210px; }
+  .fc b { font-size: 13px; }
+  .fc-web { left: 9px; top: 34px; border-radius: 5px; }
+  .fc-web i { height: 7px; }
+  .fc-ph { right: 6px; padding: 2px; }
+}

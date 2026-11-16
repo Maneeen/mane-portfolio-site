@@ -108,6 +108,38 @@ function CaseCanvas({ project, isMobile }) {
   );
 }
 
+// The real site, served from /public/sites, scrolls inside a browser-like frame
+function LiveSite({ project, isMobile }) {
+  const { t } = usePrefs();
+  const { site } = project;
+  const host = site.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        maxWidth: 1440,
+        margin: '0 auto',
+        padding: isMobile ? '0 10px' : '0 clamp(16px, 3vw, 40px)',
+      }}
+    >
+      <div className="live">
+        <div className="live__bar">
+          <span className="live__host">{host}</span>
+          <a className="live__open" href={site.url} target="_blank" rel="noopener noreferrer">
+            {t.caseStudy.openSite}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <iframe className="live__frame" src={site.src} title={project.title} loading="eager" />
+      </div>
+      <p className="live__hint">{t.caseStudy.liveHint}</p>
+    </motion.div>
+  );
+}
+
 function ComingSoon({ project, isMobile }) {
   const { t } = usePrefs();
   return (
@@ -315,7 +347,9 @@ export default function CaseStudy() {
       </section>
 
       {/* Case canvas */}
-      {project.caseStudy ? (
+      {project.site ? (
+        <LiveSite project={project} isMobile={isMobile} />
+      ) : project.caseStudy ? (
         <CaseCanvas project={project} isMobile={isMobile} />
       ) : (
         <ComingSoon project={project} isMobile={isMobile} />

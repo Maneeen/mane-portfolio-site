@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { strings } from '../i18n/strings';
+import { roleStrings } from '../i18n/roleStrings';
 
 const PrefsContext = createContext(null);
 
@@ -46,3 +47,15 @@ export function PrefsProvider({ children }) {
 }
 
 export const usePrefs = () => useContext(PrefsContext);
+
+// Role pages (marketing) reuse the home page; this swaps in the
+// role's copy for everything below it. `role` is also exposed on the context.
+export function RoleScope({ role = 'product', children }) {
+  const parent = useContext(PrefsContext);
+  const value = useMemo(() => {
+    const o = roleStrings[parent.lang]?.[role];
+    const t = o ? { ...parent.t, ...o, about: { ...parent.t.about, ...o.about } } : parent.t;
+    return { ...parent, t, role };
+  }, [parent, role]);
+  return <PrefsContext.Provider value={value}>{children}</PrefsContext.Provider>;
+}

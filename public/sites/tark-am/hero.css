@@ -1,0 +1,109 @@
+/* Окно полёта: анимация WebGL живёт в скруглённой панели. Разметка и классы те же, что читает js/home.js. */
+:root{--fl-sky:#e3ecf6;--fl-mark:rgba(9,82,202,.7);--fl-glass:rgba(255,255,255,.9);--fl-glass-line:rgba(208,220,230,.9)}
+.fl{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);width:100%;height:100vh;height:100svh;min-height:640px;margin:0;padding:96px var(--fl-pad) 28px;overflow:hidden;background:var(--fl-sky);--fl-pad:var(--gap);--fl-ink:var(--ink);--fl-mute:var(--mute)}
+.fl-gl{position:absolute;inset:0;z-index:-1;display:block;width:100%;height:100%}
+.fl::before{content:"";position:absolute;inset:0 auto 0 0;z-index:0;width:min(58%,780px);pointer-events:none;background:linear-gradient(90deg,#eef5fd 0%,rgba(238,245,253,.86) 42%,rgba(238,245,253,0) 100%);opacity:var(--fl-veil,1);transition:opacity .6s ease}
+.fl-still{background:url(/sites/tark-am/hero-flight.jpg) center/cover no-repeat,var(--fl-sky)}
+.fl-still .fl-gl,.fl-still .fl-bar,.fl-still .fl-cap,.fl-still .fl-mark{display:none}
+.fl .hero-copy{position:relative;z-index:1;align-self:center;display:flex;flex-direction:column;align-items:flex-start;padding-bottom:36px}
+.fl .kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:7px 13px;border-radius:999px;border:1px solid rgba(9,82,202,.16);background:rgba(255,255,255,.72);font-size:12.5px;font-weight:500;line-height:1;color:var(--accent)}
+.fl h1{font-size:clamp(40px,4.4vw,62px);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+.fl .hero-p{margin-top:22px;max-width:450px;color:var(--ink-2);font-size:18px;line-height:1.5}
+.fl .hero-act{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:30px}
+.fl .hero-n{margin-top:24px;max-width:460px;color:var(--mute);font-size:12.5px;line-height:1.5}
+.fl-stage{display:none}
+
+/* Подпись к точке полёта (справа сверху) */
+.fl-cap{position:absolute;right:var(--fl-pad);top:22%;z-index:2;display:flex;flex-direction:column;align-items:flex-end;gap:5px;max-width:360px;padding:12px 16px 13px;border:1px solid var(--fl-glass-line);border-radius:var(--r-md);background:var(--fl-glass);box-shadow:var(--shadow-card);text-align:right;pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .45s var(--ease-out)}
+.fl-cap.on{opacity:1;transform:none}
+.fl-ck{font-size:12.5px;font-weight:500;color:var(--fl-mute)}
+.fl-ct{font-weight:500;font-size:clamp(18px,1.4vw,21px);line-height:1.3;letter-spacing:-.01em;color:var(--fl-ink)}
+.fl-cap.fin .fl-ct{font-weight:400;font-size:clamp(26px,2.2vw,32px);letter-spacing:-.035em;color:var(--accent);font-variant-numeric:tabular-nums}
+
+/* Шкала времени внизу */
+.fl-bar{-webkit-user-select:none;user-select:none;position:absolute;left:calc(var(--fl-pad) + 560px);right:var(--fl-pad);bottom:24px;z-index:3;display:flex;flex-direction:column;gap:10px}
+.fl-inst{display:flex;align-items:baseline;gap:16px;font-size:13px;color:var(--fl-mute);opacity:0;transition:opacity .4s ease;font-variant-numeric:tabular-nums}
+.fl-inst.on{opacity:1}
+.fl-inst b{font-weight:500;font-size:19px;letter-spacing:-.02em;color:var(--fl-ink)}
+.fl-inst .dn{color:var(--down-ink)}
+.fl-im{margin-left:auto;color:var(--up-ink);font-weight:500}
+.fl-im::before{content:"месяц ";font-weight:400;color:var(--fl-mute)}
+.fl-im.dn{color:var(--down-ink)}
+.fl-row{display:flex;align-items:center;gap:20px}
+.fl-tl{position:relative;flex:1;height:34px;cursor:grab;touch-action:none}
+.fl-tl:active{cursor:grabbing}
+.fl-track,.fl-fill{position:absolute;left:0;top:12px;height:2px;border-radius:2px;background:rgba(11,17,32,.16)}
+.fl-track{right:0}
+.fl-fill{right:0;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+.fl-knob{position:absolute;top:13px;left:0;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border:2px solid var(--accent);border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(11,17,32,.18)}
+.fl-knob::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--accent);opacity:0;transform:scale(.8);transition:opacity .16s ease-out,transform .16s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.fl-tl:hover .fl-knob::after{opacity:.4;transform:none}}
+.fl-tl:focus-visible .fl-knob::after{opacity:.6;transform:none}
+.fl-tl:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.fl-ticks{position:absolute;inset:0;pointer-events:none}
+.fl-tick{position:absolute;top:9px;width:1px;height:7px;background:var(--fl-mute);opacity:.45;font-style:normal;font-size:11.5px;color:var(--fl-mute);line-height:1;text-indent:6px;white-space:nowrap;overflow:visible;font-variant-numeric:tabular-nums}
+.fl-tick.y{height:11px;top:7px;opacity:.8;padding-top:15px;text-indent:-14px}
+.fl-again{flex:none;min-height:38px;padding:8px 14px;border:1px solid var(--fl-glass-line);border-radius:var(--r-sm);background:#fff;box-shadow:var(--shadow-card);color:var(--ink);font-size:13.5px;font-weight:500;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s .3s,background-color .2s ease}
+.fl-again.on{opacity:1;visibility:visible;transition:opacity .3s ease,background-color .2s ease}
+.fl-again:hover{background:var(--tint)}
+
+/* Метки на пути */
+.fl-mark{position:absolute;left:0;top:0;z-index:2;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .4s ease}
+.fl-mark.on{opacity:1}
+.fl-line{position:absolute;left:-.5px;bottom:5px;width:1px;height:52px;background:var(--fl-mark)}
+.fl-mark.hov .fl-line{height:40px}
+.fl-dot{position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border:2px solid var(--accent);border-radius:50%;background:#fff}
+.fl-lab{position:absolute;left:0;bottom:62px;display:flex;gap:12px;align-items:baseline;padding:6px 11px;border:1px solid var(--fl-glass-line);border-radius:var(--r-sm);background:var(--fl-glass);box-shadow:var(--shadow-card);transform:translateX(-50%);white-space:nowrap;font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.fl-mark.hov .fl-lab{flex-direction:column;align-items:center;gap:2px;bottom:50px}
+.fl-d{color:var(--fl-mute)}
+.fl-v{font-weight:500;font-size:15px;color:var(--accent)}
+.fl-x{color:var(--mute);font-size:12px}
+.fl-x:empty{display:none}
+.fl-start{position:absolute;left:0;top:0;z-index:2;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .4s ease .3s}
+.fl-start.on{opacity:1}
+.fl-start .fl-dot{width:8px;height:8px;left:-4px;top:-4px}
+.fl-sl{position:absolute;left:12px;top:-12px;padding:4px 9px;border:1px solid var(--fl-glass-line);border-radius:999px;background:var(--fl-glass);white-space:nowrap;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.fl-mark[data-side=end] .fl-lab{left:auto;right:-8px;transform:none}
+.fl-mark[data-side=end].hov .fl-lab{align-items:flex-end}
+
+@media (prefers-reduced-motion:no-preference){
+.fl .hero-copy>*{animation:fl-up .8s var(--ease-out) both}
+.fl .kicker{animation-delay:.08s}
+.fl h1{animation-delay:.14s}
+.fl .hero-p{animation-delay:.2s}
+.fl .hero-act{animation-delay:.26s}
+.fl .hero-n{animation-delay:.32s}
+@keyframes fl-fade{from{opacity:0}}
+@keyframes fl-up{from{opacity:0;transform:translateY(10px)}}
+}
+@media (prefers-reduced-motion:reduce){
+.fl .hero-copy>*{animation:fl-fade .4s ease both}
+@keyframes fl-fade{from{opacity:0}}
+.fl-cap,.fl-knob,.fl-inst{transition:none}
+}
+@media (max-width:1180px) and (min-width:1000px){.fl{grid-template-columns:minmax(0,440px) minmax(0,1fr)}.fl-bar{left:calc(var(--fl-pad) + 470px)}.fl h1{font-size:clamp(38px,4vw,52px)}}
+@media (max-width:999px),(max-aspect-ratio:1/1){
+.fl{--fl-pad:var(--gap);height:100vh;height:100svh;min-height:640px;max-height:1100px;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(240px,1fr);padding:88px var(--fl-pad) 0}
+.fl::before{width:100%;height:60%;background:linear-gradient(#eef5fd 0%,rgba(238,245,253,.82) 55%,rgba(238,245,253,0) 100%)}
+.fl .hero-copy{align-self:start;padding-bottom:0}
+.fl .kicker{margin-bottom:14px;font-size:11.5px;padding:6px 11px}
+.fl h1{font-size:clamp(32px,8.6vw,54px)}
+.fl .hero-p{margin-top:12px;max-width:560px;font-size:15.5px;line-height:1.45}
+.fl .hero-act{margin-top:18px}
+.fl .hero-n{margin-top:12px;font-size:11px;line-height:1.4}
+.fl-stage{display:block;touch-action:pan-y}
+.fl-cap{left:var(--fl-pad);right:auto;top:auto;bottom:108px;align-items:flex-start;text-align:left;max-width:76%}
+.fl-ct{font-size:19px}
+.fl-cap.fin .fl-ct{font-size:26px}
+.fl-bar{left:var(--fl-pad);right:var(--fl-pad);bottom:14px;gap:6px}
+.fl-inst{gap:12px;font-size:12px}
+.fl-im{display:none}
+.fl-inst b{font-size:16px}
+.fl-row{gap:12px}
+.fl-again{min-height:34px;padding:6px 11px;font-size:12.5px}
+.fl-line{height:36px}
+.fl-lab{bottom:46px;font-size:12px}
+.fl-mark.hov .fl-lab{bottom:42px}
+.fl-still{background:url(/sites/tark-am/hero-flight-m.jpg) center bottom/100% auto no-repeat,var(--fl-sky)}
+}
+@media (max-width:480px){.fl .hero-p{font-size:15px}.fl .btn-lg{min-height:50px;padding:12px 20px;font-size:15px}}
